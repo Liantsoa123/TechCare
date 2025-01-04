@@ -1,25 +1,25 @@
 package org.example.techcare.model.customers;
 
 public class Customers {
-    private  int customer_id ;
+    private  int customers_id ;
     private String email ;
     private String name;
 
     public Customers() {
     }
 
-    public Customers(int customer_id, String email, String name) {
-        this.customer_id = customer_id;
+    public Customers(int customers_id, String email, String name) {
+        this.customers_id = customers_id;
         this.email = email;
         this.name = name;
     }
 
-    public int getCustomer_id() {
-        return customer_id;
+    public int getCustomers_id() {
+        return customers_id;
     }
 
-    public void setCustomer_id(int customer_id) {
-        this.customer_id = customer_id;
+    public void setCustomers_id(int customers_id) {
+        this.customers_id = customers_id;
     }
 
     public String getEmail() {

@@ -18,7 +18,7 @@ public class LaptopDAO {
             statement.setString(1, laptop.getBrand());
             statement.setString(2, laptop.getModel());
             statement.setString(3, laptop.getSerial_number());
-            statement.setInt(4, laptop.getCustomer().getCustomer_id()); // Using the customer ID from the Customers object
+            statement.setInt(4, laptop.getCustomer().getCustomers_id()); // Using the customer ID from the Customers object
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating laptop: " + e.getMessage());
@@ -84,7 +84,7 @@ public class LaptopDAO {
             statement.setString(1, laptop.getBrand());
             statement.setString(2, laptop.getModel());
             statement.setString(3, laptop.getSerial_number());
-            statement.setInt(4, laptop.getCustomer().getCustomer_id()); // Using the customer ID from the Customers object
+            statement.setInt(4, laptop.getCustomer().getCustomers_id()); // Using the customer ID from the Customers object
             statement.setInt(5, laptop.getLaptop_id());
             statement.executeUpdate();
         } catch (SQLException e) {
