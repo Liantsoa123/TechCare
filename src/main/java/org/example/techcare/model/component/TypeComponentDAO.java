@@ -18,7 +18,8 @@ public class TypeComponentDAO {
                 if (resultSet.next()) {
                     return new TypeComponent(
                             resultSet.getInt("type_component_id"),
-                            resultSet.getString("name")
+                            resultSet.getString("name"),
+                            resultSet.getString("unit")
                     );
                 }
             }
@@ -38,7 +39,8 @@ public class TypeComponentDAO {
             while (resultSet.next()) {
                 typeComponentList.add(new TypeComponent(
                         resultSet.getInt("type_component_id"),
-                        resultSet.getString("name")
+                        resultSet.getString("name"),
+                        resultSet.getString("unit")
                 ));
             }
         } catch (SQLException e) {
