@@ -7,17 +7,17 @@ public class Component {
     private int componenr_id;
     private String brand;
     private BigDecimal unite_price;
-    private int quantity;
+    private int capacity;
     private TypeComponent typeComponent;
 
     public Component() {
     }
 
-    public Component(int componenr_id, String brand, BigDecimal unite_price, int quantity, TypeComponent typeComponent) {
+    public Component(int componenr_id, String brand, BigDecimal unite_price, int capacity, TypeComponent typeComponent) {
         this.componenr_id = componenr_id;
         this.brand = brand;
         this.unite_price = unite_price;
-        this.quantity = quantity;
+        this.capacity = capacity;
         this.typeComponent = typeComponent;
     }
 
@@ -45,12 +45,12 @@ public class Component {
         this.unite_price = unite_price;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     public TypeComponent getTypeComponent() {

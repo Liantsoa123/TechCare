@@ -11,11 +11,11 @@ import java.util.List;
 public class ComponentDAO {
     // Create
     public void createComponent(Component component) {
-        String sql = "INSERT INTO component (brand, unite_price, quantity, type_component_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO component (brand, unite_price, capacity, type_component_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setString(1, component.getBrand());
             statement.setBigDecimal(2, component.getUnite_price());
-            statement.setInt(3, component.getQuantity());
+            statement.setInt(3, component.getCapacity());
             statement.setInt(4, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -25,7 +25,7 @@ public class ComponentDAO {
 
     // Read (by ID)
     public Component getComponentById(int componentId) {
-        String sql = "SELECT componenr_id, brand, unite_price, quantity, type_component_id FROM component WHERE componenr_id = ?";
+        String sql = "SELECT componenr_id, brand, unite_price, capacity, type_component_id FROM component WHERE componenr_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, componentId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -38,7 +38,7 @@ public class ComponentDAO {
                             resultSet.getInt("componenr_id"),
                             resultSet.getString("brand"),
                             resultSet.getBigDecimal("unite_price"),
-                            resultSet.getInt("quantity"),
+                            resultSet.getInt("capacity"),
                             typeComponent
                     );
                 }
@@ -51,7 +51,7 @@ public class ComponentDAO {
 
     // Read (all)
     public List<Component> getAllComponents() {
-        String sql = "SELECT componenr_id, brand, unite_price, quantity, type_component_id FROM component";
+        String sql = "SELECT componenr_id, brand, unite_price, capacity, type_component_id FROM component";
         List<Component> componentList = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -65,7 +65,7 @@ public class ComponentDAO {
                         resultSet.getInt("componenr_id"),
                         resultSet.getString("brand"),
                         resultSet.getBigDecimal("unite_price"),
-                        resultSet.getInt("quantity"),
+                        resultSet.getInt("capacity"),
                         typeComponent
                 ));
             }
@@ -77,11 +77,11 @@ public class ComponentDAO {
 
     // Update
     public void updateComponent(Component component) {
-        String sql = "UPDATE component SET brand = ?, unite_price = ?, quantity = ?, type_component_id = ? WHERE componenr_id = ?";
+        String sql = "UPDATE component SET brand = ?, unite_price = ?, capacity = ?, type_component_id = ? WHERE componenr_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setString(1, component.getBrand());
             statement.setBigDecimal(2, component.getUnite_price());
-            statement.setInt(3, component.getQuantity());
+            statement.setInt(3, component.getCapacity());
             statement.setInt(4, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(5, component.getComponenr_id());
             statement.executeUpdate();
