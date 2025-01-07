@@ -1,6 +1,9 @@
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Arrays" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<% String pages = (String) request.getAttribute("page");
-
+<%
+    String pages = (String) request.getAttribute("page");
+    List<String> validPages = Arrays.asList("listRepair", "home", "insertComponent", "listComponent");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,9 +35,15 @@
         <div class="main-panel">
             <div class="content-wrapper">
                 <%
-                    if (pages != null) {
+                    if (validPages.contains(pages)) {
+                        pages = "pages/" + pages + ".jsp";
                 %>
-                <%@include file="pages/<%=pages%>.jsp" %>
+                <jsp:include page="<%=pages%>" />
+                <%
+                } else {
+                %>
+                <jsp:include page="pages/error-404.jsp" />
+                <%
                     }
                 %>
             </div>

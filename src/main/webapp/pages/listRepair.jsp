@@ -31,13 +31,13 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Recherche</h4>
-                <form class="forms-sample">
+                <form class="forms-sample" action="./repaireServlet"  method="post">
                     <div class="form-group">
                         <label for="typeComponent">Type Component</label>
                         <select class="form-control" id="typeComponent" name="typComponentId">
                             <%
                                 for (TypeComponent typeComponent : listTypeComponent) { %>
-                            <option value="<%=typeComponent.getType_component_id()%>%>"><%=typeComponent.getName()%></option>
+                            <option value="<%=typeComponent.getType_component_id()%>"><%=typeComponent.getName()%></option>
                             <% }
                             %>
                         </select>
@@ -49,18 +49,6 @@
         </div>
     </div>
 </div>
-<%--Page Header--%>
-<div class="page-header">
-    <h3 class="page-title"> Listes Components </h3>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Component</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Listes Components</li>
-        </ol>
-    </nav>
-</div>
-<%--Fin Page Header--%>
-
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
@@ -73,6 +61,8 @@
                         <th>Id</th>
                         <th>Nom Client</th>
                         <th>Numero de Serie</th>
+                        <th>Marque</th>
+                        <th>Model</th>
                         <th>Date de depot</th>
                         <th>Status</th>
                     </tr>
@@ -83,6 +73,8 @@
                         <td> <%=repair.getRepair_id()%></td>
                         <td> <%=repair.getLaptop().getCustomer().getName()%></td>
                         <td> <%=repair.getLaptop().getSerial_number()%></td>
+                        <td> <%=repair.getLaptop().getBrand()%></td>
+                        <td> <%=repair.getLaptop().getModel()%></td>
                         <td> <%=repair.getFiling_date()%></td>
                         <td> <%=repair.getRepairStatus().getName()%></td>
 
