@@ -14,7 +14,6 @@ import org.example.techcare.model.repair.RepairStatusDAO;
 import org.example.techcare.model.repair.RepairStatus;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 
 @WebServlet(name = "RepaireServlet", value = "/repaireServlet")
@@ -25,20 +24,24 @@ public class RepairServlet extends HttpServlet {
         response.setContentType("text/html");
 
         List<TypeComponent> listTypeComponents = new TypeComponentDAO().getAllTypeComponents();
-        request.setAttribute("TypeComponent",listTypeComponents);
-        RequestDispatcher dispastcher = request.getRequestDispatcher("pages/listReparation.jsp");
-        dispastcher.forward(request,response);
+        request.setAttribute("TypeComponent", listTypeComponents);
+        request.setAttribute("page", "listRepair");
+        RequestDispatcher dispastcher = request.getRequestDispatcher("index.jsp");
+        dispastcher.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int idTypeComponent =Integer.parseInt(req.getParameter("typComponentId")) ;
+        int idTypeComponent = Integer.parseInt(req.getParameter("typComponentId"));
         List<Repair> repairs = new RepairDAO().getRepairsByTypeComponentId(idTypeComponent);
-        List<RepairStatus> reparationStatuses = new RepairStatusDAO().getAllRepairStatuses();
-        req.setAttribute("repairs",repairs);
-        req.setAttribute("repairstatus",reparationStatuses);
-        RequestDispatcher dispastcher =req.getRequestDispatcher("pages/listReparation.jsp");
-        dispastcher.forward(req,resp);
+        req.setAttribute("repairs", repairs);
+
+        List<TypeComponent> listTypeComponents = new TypeComponentDAO().getAllTypeComponents();
+        req.setAttribute("TypeComponent", listTypeComponents);
+        req.setAttribute("page", "listRepair");
+
+        RequestDispatcher dispastcher = req.getRequestDispatcher("index.jsp");
+        dispastcher.forward(req, resp);
     }
 
     public void destroy() {
