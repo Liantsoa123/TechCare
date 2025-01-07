@@ -31,7 +31,12 @@
         <%@include file="pages/_navbar.jsp" %>
         <div class="main-panel">
             <div class="content-wrapper">
-                <%@include file="pages/listesComponent.jsp"%>
+                <%
+                    if (pages != null) {
+                %>
+                <%@include file="pages/<%=pages%>.jsp" %>
+                    }
+                %>
             </div>
         </div>
     </div>
