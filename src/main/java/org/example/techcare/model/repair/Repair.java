@@ -10,7 +10,6 @@ public class Repair {
     private int repair_id;
     private Timestamp filing_date;
     private Timestamp end_date;
-    private BigDecimal total;
     private Laptop laptop;
     private Technician technician;
     private RepairStatus repairStatus;
@@ -18,11 +17,10 @@ public class Repair {
     public Repair() {
     }
 
-    public Repair(int repair_id, Timestamp filing_date, Timestamp end_date, BigDecimal total, Laptop laptop, Technician technician, RepairStatus repairStatus) {
+    public Repair(int repair_id, Timestamp filing_date, Timestamp end_date, Laptop laptop, Technician technician, RepairStatus repairStatus) {
         this.repair_id = repair_id;
         this.filing_date = filing_date;
         this.end_date = end_date;
-        this.total = total;
         this.laptop = laptop;
         this.technician = technician;
         this.repairStatus = repairStatus;
@@ -51,15 +49,6 @@ public class Repair {
     public void setEnd_date(Timestamp end_date) {
         this.end_date = end_date;
     }
-
-    public BigDecimal getTotal() {
-        return total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
-    }
-
     public Laptop getLaptop() {
         return laptop;
     }

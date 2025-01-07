@@ -47,5 +47,21 @@
             </div>
         </li>
 
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#repair" aria-expanded="false" aria-controls="ui-basic">
+        <span class="menu-icon">
+          <i class="mdi mdi-memory"></i>
+        </span>
+                <span class="menu-title">Repair</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="repair">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="#">Insertion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./repaireServlet">List</a></li>
+                </ul>
+            </div>
+        </li>
+
     </ul>
 </nav>
