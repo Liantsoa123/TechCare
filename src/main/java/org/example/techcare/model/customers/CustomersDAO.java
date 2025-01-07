@@ -22,7 +22,7 @@ public class CustomersDAO {
 
     // Read (by ID)
     public Customers getCustomerById(int customerId) {
-        String sql = "SELECT customers_id, email, name FROM customers WHERE customer_id = ?";
+        String sql = "SELECT * FROM customers WHERE customers_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, customerId);
             try (ResultSet resultSet = statement.executeQuery()) {
