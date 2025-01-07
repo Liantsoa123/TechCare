@@ -122,4 +122,41 @@ public class RepairDAO {
             System.err.println("Error while deleting repair: " + e.getMessage());
         }
     }
+
+    // GET REPAIRS BY TYPE COMPONENT ID
+    public List<Repair> getRepairsByTypeComponentId(int idTypeComponent) {
+        String sql = """
+            SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.total, r.laptop_id, r.technician_id, r.repair_status_id
+            FROM repair r
+            INNER JOIN repair_details rd ON r.repair_id = rd.repair_id
+            INNER JOIN component c ON rd.componenr_id = c.componenr_id
+            WHERE c.type_component_id = ?
+        """;
+
+        List<Repair> repairs = new ArrayList<>();
+
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+            statement.setInt(1, idTypeComponent);
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Repair repair = new Repair(
+                            resultSet.getInt("repair_id"),
+                            resultSet.getTimestamp("filing_date"),
+                            resultSet.getTimestamp("end_date"),
+                            resultSet.getBigDecimal("total"),
+                            new LaptopDAO().getLaptopById(resultSet.getInt("laptop_id")),
+                            new TechnicianDAO().getTechnicianById(resultSet.getInt("technician_id")),
+                            new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id"))
+                    );
+                    repairs.add(repair);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while fetching repairs by TypeComponentId: " + e.getMessage());
+        }
+
+        return repairs;
+    }
 }
+
