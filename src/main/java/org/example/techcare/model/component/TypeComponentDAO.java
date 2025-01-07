@@ -11,7 +11,7 @@ import java.util.List;
 public class TypeComponentDAO {
     // Read (by ID)
     public TypeComponent getTypeComponentById(int typeComponentId) {
-        String sql = "SELECT type_component_id, name FROM type_component WHERE type_component_id = ?";
+        String sql = "SELECT * FROM type_component WHERE type_component_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, typeComponentId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -31,7 +31,7 @@ public class TypeComponentDAO {
 
     // Read (all)
     public List<TypeComponent> getAllTypeComponents() {
-        String sql = "SELECT type_component_id, name FROM type_component";
+        String sql = "SELECT * FROM type_component";
         List<TypeComponent> typeComponentList = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -45,6 +45,7 @@ public class TypeComponentDAO {
             }
         } catch (SQLException e) {
             System.err.println("Error while retrieving all type components: " + e.getMessage());
+            e.printStackTrace();
         }
         return typeComponentList;
     }

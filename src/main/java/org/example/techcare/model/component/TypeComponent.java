@@ -8,10 +8,10 @@ public class TypeComponent {
     public TypeComponent() {
     }
 
-    public TypeComponent(int type_component_id, String namec, String unit) {
+    public TypeComponent(int type_component_id, String name, String unit) {
         this.type_component_id = type_component_id;
         this.name = name;
-        this.setUnit(unit);
+        this.unit = unit;
     }
 
     public int getType_component_id() {
