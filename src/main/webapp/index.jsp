@@ -31,7 +31,7 @@
         <%@include file="pages/_navbar.jsp" %>
         <div class="main-panel">
             <div class="content-wrapper">
-
+                <%@include file="pages/listesComponent.jsp"%>
             </div>
         </div>
     </div>
