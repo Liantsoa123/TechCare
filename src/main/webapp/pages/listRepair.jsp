@@ -73,7 +73,7 @@
                         <td> <%=repair.getRepair_id()%></td>
                         <td> <%=repair.getLaptop().getCustomer().getName()%></td>
                         <td> <%=repair.getLaptop().getSerial_number()%></td>
-                        <td> <%=repair.getLaptop().getBrand()%></td>
+                        <td> <%=repair.getLaptop().getBrandLaptop().getName()%></td>
                         <td> <%=repair.getLaptop().getModel()%></td>
                         <td> <%=repair.getFiling_date()%></td>
                         <td> <%=repair.getRepairStatus().getName()%></td>
