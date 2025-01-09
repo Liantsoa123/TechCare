@@ -1,9 +1,8 @@
-package org.example.techcare.model.laptop;
+package org.example.techcare.dao;
 
-import org.example.techcare.dao.BrandLaptopDAO;
 import org.example.techcare.model.brandlaptop.BrandLaptop;
 import org.example.techcare.model.customers.Customers;
-import org.example.techcare.dao.CustomersDAO;
+import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.PreparedStatement;
