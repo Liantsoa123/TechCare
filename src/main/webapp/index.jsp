@@ -3,6 +3,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     String pages = (String) request.getAttribute("page");
+    if (pages == null){
+        pages = "home";
+    }
     List<String> validPages = Arrays.asList("listRepair", "home", "insertComponent", "listComponent");
 %>
 <!DOCTYPE html>
@@ -28,24 +31,18 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+<%
+    if (validPages.contains(pages)) {
+        pages = "pages/" + pages + ".jsp";
+%>
+
 <div class="container-scroller">
     <%@include file="pages/_sidebar.jsp" %>
     <div class="container-fluid page-body-wrapper">
         <%@include file="pages/_navbar.jsp" %>
         <div class="main-panel">
             <div class="content-wrapper">
-                <%
-                    if (validPages.contains(pages)) {
-                        pages = "pages/" + pages + ".jsp";
-                %>
-                <jsp:include page="<%=pages%>" />
-                <%
-                } else {
-                %>
-                <jsp:include page="pages/error-404.jsp" />
-                <%
-                    }
-                %>
+                <jsp:include page="<%=pages%>"/>
             </div>
         </div>
     </div>
@@ -70,5 +67,13 @@
 <!-- Custom js for this page -->
 <script src="assets/js/dashboard.js"></script>
 <!-- End custom js for this page -->
+<%
+} else {
+%>
+<jsp:include page="pages/error-404.jsp"/>
+<%
+    }
+%>
+
 </body>
 </html>

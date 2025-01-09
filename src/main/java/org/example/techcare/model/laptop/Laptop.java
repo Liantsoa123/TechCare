@@ -1,23 +1,26 @@
 package org.example.techcare.model.laptop;
 
+import org.example.techcare.model.brandlaptop.BrandLaptop;
 import org.example.techcare.model.customers.Customers;
 
 public class Laptop {
     private int laptop_id;
-    private String brand;
     private String model;
     private String serial_number;
     private Customers customer;
 
+
+    private BrandLaptop brandLaptop;
+
     public Laptop() {
     }
 
-    public Laptop(int laptop_id, String brand, String model, String serial_number, Customers customer) {
+    public Laptop(int laptop_id, String model, String serial_number, Customers customer , BrandLaptop brandLaptop) {
         this.laptop_id = laptop_id;
-        this.brand = brand;
         this.model = model;
         this.serial_number = serial_number;
         this.customer = customer;
+        this.brandLaptop = brandLaptop;
     }
 
     public int getLaptop_id() {
@@ -26,14 +29,6 @@ public class Laptop {
 
     public void setLaptop_id(int laptop_id) {
         this.laptop_id = laptop_id;
-    }
-
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
     }
 
     public String getModel() {
@@ -58,5 +53,13 @@ public class Laptop {
 
     public void setCustomer(Customers customer) {
         this.customer = customer;
+    }
+
+    public BrandLaptop getBrandLaptop() {
+        return brandLaptop;
+    }
+
+    public void setBrandLaptop(BrandLaptop brandLaptop) {
+        this.brandLaptop = brandLaptop;
     }
 }
