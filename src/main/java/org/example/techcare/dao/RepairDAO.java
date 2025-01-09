@@ -4,7 +4,6 @@ import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.repair.RepairStatus;
 import org.example.techcare.model.technician.Technician;
-import org.example.techcare.model.technician.TechnicianDAO;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.PreparedStatement;
