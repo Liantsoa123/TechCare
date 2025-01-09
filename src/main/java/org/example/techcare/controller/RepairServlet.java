@@ -9,9 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.component.TypeComponentDAO;
 import org.example.techcare.model.repair.Repair;
-import org.example.techcare.model.repair.RepairDAO;
-import org.example.techcare.model.repair.RepairStatusDAO;
-import org.example.techcare.model.repair.RepairStatus;
+import org.example.techcare.dao.RepairDAO;
 
 import java.io.IOException;
 import java.util.List;

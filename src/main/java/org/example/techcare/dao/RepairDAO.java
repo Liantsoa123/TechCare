@@ -1,7 +1,9 @@
-package org.example.techcare.model.repair;
+package org.example.techcare.dao;
 
 import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.laptop.LaptopDAO;
+import org.example.techcare.model.repair.Repair;
+import org.example.techcare.model.repair.RepairStatus;
 import org.example.techcare.model.technician.Technician;
 import org.example.techcare.model.technician.TechnicianDAO;
 import org.example.techcare.model.utils.ConnectionBdd;

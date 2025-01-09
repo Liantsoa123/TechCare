@@ -2,8 +2,6 @@ package org.example.techcare.model;
 
 import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.component.TypeComponentDAO;
-import org.example.techcare.model.repair.Repair;
-import org.example.techcare.model.repair.RepairDAO;
 
 import java.util.List;
 
