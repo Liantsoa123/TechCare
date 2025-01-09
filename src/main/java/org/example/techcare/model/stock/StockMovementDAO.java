@@ -2,10 +2,9 @@ package org.example.techcare.model.stock;
 
 
 import org.example.techcare.model.component.Component;
-import org.example.techcare.model.component.ComponentDAO;
+import org.example.techcare.dao.ComponentDAO;
 import org.example.techcare.model.utils.ConnectionBdd;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

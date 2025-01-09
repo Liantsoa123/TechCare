@@ -1,7 +1,6 @@
 package org.example.techcare.dao;
 
 import org.example.techcare.model.component.Component;
-import org.example.techcare.model.component.ComponentDAO;
 import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.repair.RepairDetails;
 import org.example.techcare.model.utils.ConnectionBdd;

@@ -1,7 +1,7 @@
 package org.example.techcare.model;
 
 import org.example.techcare.model.component.TypeComponent;
-import org.example.techcare.model.component.TypeComponentDAO;
+import org.example.techcare.dao.TypeComponentDAO;
 
 import java.util.List;
 

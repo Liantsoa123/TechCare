@@ -1,7 +1,7 @@
 package org.example.techcare.model.laptopcomponent;
 
 
-import org.example.techcare.model.component.ComponentDAO;
+import org.example.techcare.dao.ComponentDAO;
 import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.component.Component;
 import org.example.techcare.model.laptop.LaptopDAO;

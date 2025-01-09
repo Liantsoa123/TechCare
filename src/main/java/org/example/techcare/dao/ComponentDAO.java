@@ -1,7 +1,8 @@
-package org.example.techcare.model.component;
+package org.example.techcare.dao;
 
-import org.example.techcare.dao.BrandComponentDAO;
 import org.example.techcare.model.brandcomponent.BrandComponent;
+import org.example.techcare.model.component.Component;
+import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.PreparedStatement;
