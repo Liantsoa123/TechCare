@@ -1,8 +1,7 @@
-package org.example.techcare.model.user;
+package org.example.techcare.dao;
 
 import org.example.techcare.model.utils.ConnectionBdd;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
