@@ -1,11 +1,10 @@
-package org.example.techcare.model.stock;
+package org.example.techcare.dao;
 
 
 import org.example.techcare.model.component.Component;
-import org.example.techcare.model.component.ComponentDAO;
+import org.example.techcare.model.stock.StockMovement;
 import org.example.techcare.model.utils.ConnectionBdd;
 
-import java.math.BigDecimal;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

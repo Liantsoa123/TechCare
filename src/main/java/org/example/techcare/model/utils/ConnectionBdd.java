@@ -1,12 +1,8 @@
 package org.example.techcare.model.utils;
 
-import org.example.techcare.model.customers.Customers;
-import org.example.techcare.model.customers.CustomersDAO;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
 
 public class ConnectionBdd {
     // Database URL, username, and password

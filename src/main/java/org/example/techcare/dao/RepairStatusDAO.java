@@ -1,5 +1,6 @@
-package org.example.techcare.model.repair;
+package org.example.techcare.dao;
 
+import org.example.techcare.model.repair.RepairStatus;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.PreparedStatement;

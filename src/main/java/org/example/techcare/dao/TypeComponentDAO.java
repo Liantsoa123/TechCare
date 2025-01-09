@@ -1,5 +1,6 @@
-package org.example.techcare.model.component;
+package org.example.techcare.dao;
 
+import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.PreparedStatement;

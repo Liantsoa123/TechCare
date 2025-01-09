@@ -1,10 +1,9 @@
-package org.example.techcare.model.laptopcomponent;
+package org.example.techcare.dao;
 
 
-import org.example.techcare.model.component.ComponentDAO;
 import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.component.Component;
-import org.example.techcare.model.laptop.LaptopDAO;
+import org.example.techcare.model.laptopcomponent.LaptopComponent;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.*;
