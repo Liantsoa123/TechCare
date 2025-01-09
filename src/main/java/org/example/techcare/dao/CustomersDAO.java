@@ -1,5 +1,6 @@
-package org.example.techcare.model.customers;
+package org.example.techcare.dao;
 
+import org.example.techcare.model.customers.Customers;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.sql.*;
