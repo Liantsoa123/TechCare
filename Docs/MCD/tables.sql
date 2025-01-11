@@ -45,25 +45,33 @@ CREATE TABLE brand_laptop(
    PRIMARY KEY(brand_laptop_id)
 );
 
+CREATE TABLE laptop_type(
+   laptop_type_id SERIAL,
+   name VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(laptop_type_id)
+);
+
 CREATE TABLE laptop(
    laptop_id SERIAL,
    model VARCHAR(250)  NOT NULL,
    serial_number VARCHAR(250)  NOT NULL,
+   laptop_type_id INTEGER NOT NULL,
    brand_laptop_id INTEGER NOT NULL,
    customers_id INTEGER,
    PRIMARY KEY(laptop_id),
    UNIQUE(serial_number),
+   FOREIGN KEY(laptop_type_id) REFERENCES laptop_type(laptop_type_id),
    FOREIGN KEY(brand_laptop_id) REFERENCES brand_laptop(brand_laptop_id),
    FOREIGN KEY(customers_id) REFERENCES customers(customers_id)
 );
 
 CREATE TABLE component(
-   componenr_id SERIAL,
+   component_id SERIAL,
    unite_price NUMERIC(15,2)   NOT NULL,
    capacity NUMERIC(15,2)  ,
    brand_component_id INTEGER NOT NULL,
    type_component_id INTEGER NOT NULL,
-   PRIMARY KEY(componenr_id),
+   PRIMARY KEY(component_id),
    FOREIGN KEY(brand_component_id) REFERENCES brand_component(brand_component_id),
    FOREIGN KEY(type_component_id) REFERENCES type_component(type_component_id)
 );
@@ -85,10 +93,10 @@ CREATE TABLE repair(
 CREATE TABLE repair_details(
    repaire_details_id SERIAL,
    quantity INTEGER NOT NULL,
-   componenr_id INTEGER NOT NULL,
+   component_id INTEGER NOT NULL,
    repair_id INTEGER NOT NULL,
    PRIMARY KEY(repaire_details_id),
-   FOREIGN KEY(componenr_id) REFERENCES component(componenr_id),
+   FOREIGN KEY(component_id) REFERENCES component(component_id),
    FOREIGN KEY(repair_id) REFERENCES repair(repair_id)
 );
 
@@ -97,16 +105,24 @@ CREATE TABLE stock_movement(
    quantity NUMERIC(15,2)   NOT NULL,
    is_enter BOOLEAN NOT NULL,
    date_movement TIMESTAMP NOT NULL,
-   componenr_id INTEGER NOT NULL,
+   component_id INTEGER NOT NULL,
    PRIMARY KEY(stock_movement_id),
-   FOREIGN KEY(componenr_id) REFERENCES component(componenr_id)
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
+);
+
+CREATE TABLE retour(
+   retour_id SERIAL,
+   retour_date TIMESTAMP NOT NULL,
+   repair_id INTEGER NOT NULL,
+   PRIMARY KEY(retour_id),
+   FOREIGN KEY(repair_id) REFERENCES repair(repair_id)
 );
 
 CREATE TABLE laptop_component(
    laptop_id INTEGER,
-   componenr_id INTEGER,
+   component_id INTEGER,
    quantity INTEGER NOT NULL,
-   PRIMARY KEY(laptop_id, componenr_id),
+   PRIMARY KEY(laptop_id, component_id),
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
-   FOREIGN KEY(componenr_id) REFERENCES component(componenr_id)
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
 );
