@@ -30,7 +30,7 @@ public class RepairDAO {
 
     // Read (by ID)
     public Repair getRepairById(int repairId) {
-        String sql = "SELECT repair_id, filing_date, end_date, total, laptop_id, technician_id, repair_status_id FROM repair WHERE repair_id = ?";
+        String sql = "SELECT repair_id, filing_date, end_date, laptop_id, technician_id, repair_status_id FROM repair WHERE repair_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, repairId);
             try (ResultSet resultSet = statement.executeQuery()) {
