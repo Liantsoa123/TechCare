@@ -22,6 +22,7 @@
             <span class="nav-link">Navigation</span>
         </li>
 
+        <%--Dashboard--%>
         <li class="nav-item menu-items">
             <a class="nav-link" href="pages/forms/basic_elements.html">
         <span class="menu-icon">
@@ -31,6 +32,7 @@
             </a>
         </li>
 
+        <%--Component --%>
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-icon">
@@ -47,6 +49,7 @@
             </div>
         </li>
 
+        <%--Repair--%>
         <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#repair" aria-expanded="false" aria-controls="ui-basic">
         <span class="menu-icon">
@@ -59,6 +62,23 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="#">Insertion</a></li>
                     <li class="nav-item"><a class="nav-link" href="./repaireServlet">List</a></li>
+                </ul>
+            </div>
+        </li>
+
+        <%--Retour--%>
+        <li class="nav-item menu-items">
+            <a class="nav-link" data-toggle="collapse" href="#retour" aria-expanded="false" aria-controls="ui-basic">
+        <span class="menu-icon">
+          <i class="mdi mdi-memory"></i>
+        </span>
+                <span class="menu-title">Retour</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="retour">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"><a class="nav-link" href="./retourServlet">Insertion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./retourServlet?mode=L">List</a></li>
                 </ul>
             </div>
         </li>

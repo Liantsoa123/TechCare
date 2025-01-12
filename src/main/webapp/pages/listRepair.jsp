@@ -30,7 +30,7 @@
     <div class="col-md-6 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Recherche</h4>
+                <h4 class="card-title">Search</h4>
                 <form class="forms-sample" action="./repaireServlet"  method="post">
                     <div class="form-group">
                         <label for="typeComponent">Type Component</label>
@@ -42,7 +42,7 @@
                             %>
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary mr-2">Recherche</button>
+                    <button type="submit" class="btn btn-primary mr-2">Search</button>
 
                 </form>
             </div>
@@ -69,8 +69,11 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <% for(Repair repair : repairs){ %>
-                        <td> <%=repair.getRepair_id()%></td>
+                        <%
+                            int id = 1 ;
+                            for(Repair repair : repairs){
+                        %>
+                        <td> <%=id%></td>
                         <td> <%=repair.getLaptop().getCustomer().getName()%></td>
                         <td> <%=repair.getLaptop().getSerial_number()%></td>
                         <td> <%=repair.getLaptop().getBrandLaptop().getName()%></td>
@@ -79,6 +82,8 @@
                         <td> <%=repair.getRepairStatus().getName()%></td>
 
                         <%
+                                id++;
+
                             }%>
                     </tr>
                     </tbody>

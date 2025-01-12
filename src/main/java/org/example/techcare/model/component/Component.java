@@ -6,29 +6,31 @@ import org.example.techcare.model.brandcomponent.BrandComponent;
 import java.math.BigDecimal;
 
 public class Component {
-    private int componenr_id;
+    private int component_id;
     private BigDecimal unite_price;
     private int capacity;
     private TypeComponent typeComponent;
     private BrandComponent brandComponent;
+    private String model ;
 
     public Component() {
     }
 
-    public Component(int componenr_id, BigDecimal unite_price, int capacity, TypeComponent typeComponent , BrandComponent brandComponent) {
-        this.componenr_id = componenr_id;
+    public Component(int componenr_id, BigDecimal unite_price, int capacity, TypeComponent typeComponent , BrandComponent brandComponent, String model) {
+        this.component_id = componenr_id;
         this.unite_price = unite_price;
         this.capacity = capacity;
         this.typeComponent = typeComponent;
         this.brandComponent = brandComponent;
+        this.model= model;
     }
 
-    public int getComponenr_id() {
-        return componenr_id;
+    public int getComponent_id() {
+        return component_id;
     }
 
-    public void setComponenr_id(int componenr_id) {
-        this.componenr_id = componenr_id;
+    public void setComponent_id(int componenr_id) {
+        this.component_id = componenr_id;
     }
 
     public BigDecimal getUnite_price() {
@@ -60,5 +62,12 @@ public class Component {
 
     public void setBrandComponent(BrandComponent brandComponent) {
         this.brandComponent = brandComponent;
+    }
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }

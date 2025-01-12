@@ -14,10 +14,10 @@ import java.util.List;
 public class RepairDetailsDAO {
     // Create
     public void createRepairDetails(RepairDetails repairDetails) {
-        String sql = "INSERT INTO repair_details (quantity, componenr_id, repair_id) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO repair_details (quantity, component_id, repair_id) VALUES (?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, repairDetails.getQuantity());
-            statement.setInt(2, repairDetails.getComponent().getComponenr_id()); // Using componenr_id from the Component object
+            statement.setInt(2, repairDetails.getComponent().getComponent_id()); // Using component_id from the Component object
             statement.setInt(3, repairDetails.getRepair().getRepair_id()); // Using repair_id from the Repair object
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -27,7 +27,7 @@ public class RepairDetailsDAO {
 
     // Read (by ID)
     public RepairDetails getRepairDetailsById(int repairDetailsId) {
-        String sql = "SELECT repaire_details_id, quantity, componenr_id, repair_id FROM repair_details WHERE repaire_details_id = ?";
+        String sql = "SELECT repaire_details_id, quantity, component_id, repair_id FROM repair_details WHERE repaire_details_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, repairDetailsId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -36,7 +36,7 @@ public class RepairDetailsDAO {
                     ComponentDAO componentDAO = new ComponentDAO();
                     RepairDAO repairDAO = new RepairDAO();
 
-                    Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                    Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
                     Repair repair = repairDAO.getRepairById(resultSet.getInt("repair_id"));
 
                     return new RepairDetails(
@@ -55,7 +55,7 @@ public class RepairDetailsDAO {
 
     // Read (all)
     public List<RepairDetails> getAllRepairDetails() {
-        String sql = "SELECT repaire_details_id, quantity, componenr_id, repair_id FROM repair_details";
+        String sql = "SELECT repaire_details_id, quantity, component_id, repair_id FROM repair_details";
         List<RepairDetails> repairDetailsList = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -65,7 +65,7 @@ public class RepairDetailsDAO {
                 ComponentDAO componentDAO = new ComponentDAO();
                 RepairDAO repairDAO = new RepairDAO();
 
-                Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
                 Repair repair = repairDAO.getRepairById(resultSet.getInt("repair_id"));
 
                 repairDetailsList.add(new RepairDetails(
@@ -83,10 +83,10 @@ public class RepairDetailsDAO {
 
     // Update
     public void updateRepairDetails(RepairDetails repairDetails) {
-        String sql = "UPDATE repair_details SET quantity = ?, componenr_id = ?, repair_id = ? WHERE repaire_details_id = ?";
+        String sql = "UPDATE repair_details SET quantity = ?, component_id = ?, repair_id = ? WHERE repaire_details_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, repairDetails.getQuantity());
-            statement.setInt(2, repairDetails.getComponent().getComponenr_id()); // Using componenr_id from the Component object
+            statement.setInt(2, repairDetails.getComponent().getComponent_id()); // Using component_id from the Component object
             statement.setInt(3, repairDetails.getRepair().getRepair_id()); // Using repair_id from the Repair object
             statement.setInt(4, repairDetails.getRepaire_details_id());
             statement.executeUpdate();

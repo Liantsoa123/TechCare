@@ -2,12 +2,14 @@ package org.example.techcare.model.laptop;
 
 import org.example.techcare.model.brandlaptop.BrandLaptop;
 import org.example.techcare.model.customers.Customers;
+import org.example.techcare.model.laptotype.LaptopType;
 
 public class Laptop {
     private int laptop_id;
     private String model;
     private String serial_number;
     private Customers customer;
+    private LaptopType laptopType;
 
 
     private BrandLaptop brandLaptop;
@@ -15,12 +17,13 @@ public class Laptop {
     public Laptop() {
     }
 
-    public Laptop(int laptop_id, String model, String serial_number, Customers customer , BrandLaptop brandLaptop) {
+    public Laptop(int laptop_id, String model, String serial_number, Customers customer, BrandLaptop brandLaptop, LaptopType laptopType) {
         this.laptop_id = laptop_id;
         this.model = model;
         this.serial_number = serial_number;
         this.customer = customer;
         this.brandLaptop = brandLaptop;
+        this.laptopType = laptopType ;
     }
 
     public int getLaptop_id() {
@@ -61,5 +64,13 @@ public class Laptop {
 
     public void setBrandLaptop(BrandLaptop brandLaptop) {
         this.brandLaptop = brandLaptop;
+    }
+
+    public LaptopType getLaptopType() {
+        return laptopType;
+    }
+
+    public void setLaptopType(LaptopType laptopType) {
+        this.laptopType = laptopType;
     }
 }
