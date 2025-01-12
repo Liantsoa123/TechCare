@@ -16,7 +16,7 @@ public class RetourDAO {
     public void createRetour(Retour retour) {
         String sql = "INSERT INTO retour (retour_date, repair_id) VALUES (?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
-            statement.setString(1, retour.getRetour_date());
+            statement.setTimestamp(1, retour.getRetour_date());
             statement.setInt(2, retour.getRepair().getRepair_id()); // Using repair_id from the Repair object
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -37,7 +37,7 @@ public class RetourDAO {
 
                     return new Retour(
                             resultSet.getInt("retour_id"),
-                            resultSet.getString("retour_date"),
+                            resultSet.getTimestamp("retour_date"),
                             repair
                     );
                 }
@@ -61,7 +61,7 @@ public class RetourDAO {
 
                     return new Retour(
                             resultSet.getInt("retour_id"),
-                            resultSet.getString("retour_date"),
+                            resultSet.getTimestamp("retour_date"),
                             repair
                     );
                 }
@@ -86,7 +86,7 @@ public class RetourDAO {
 
                 retourList.add(new Retour(
                         resultSet.getInt("retour_id"),
-                        resultSet.getString("retour_date"),
+                        resultSet.getTimestamp("retour_date"),
                         repair
                 ));
             }
@@ -100,7 +100,7 @@ public class RetourDAO {
     public void updateRetour(Retour retour) {
         String sql = "UPDATE retour SET retour_date = ?, repair_id = ? WHERE retour_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
-            statement.setString(1, retour.getRetour_date());
+            statement.setTimestamp(1, retour.getRetour_date());
             statement.setInt(2, retour.getRepair().getRepair_id());
             statement.setInt(3, retour.getRetour_id());
             statement.executeUpdate();

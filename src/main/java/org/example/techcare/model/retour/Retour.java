@@ -2,15 +2,17 @@ package org.example.techcare.model.retour;
 
 import org.example.techcare.model.repair.Repair;
 
+import java.sql.Timestamp;
+
 public class Retour {
     private int retour_id;
-    private String retour_date;
+    private Timestamp retour_date;
     private Repair repair ;
 
     public Retour() {
     }
 
-    public Retour(int retour_id, String retour_date, Repair repair) {
+    public Retour(int retour_id, Timestamp retour_date, Repair repair) {
         this.retour_id = retour_id;
         this.retour_date = retour_date;
         this.repair = repair;
@@ -24,11 +26,11 @@ public class Retour {
         this.retour_id = retour_id;
     }
 
-    public String getRetour_date() {
+    public Timestamp getRetour_date() {
         return retour_date;
     }
 
-    public void setRetour_date(String retour_date) {
+    public void setRetour_date(Timestamp retour_date) {
         this.retour_date = retour_date;
     }
 
