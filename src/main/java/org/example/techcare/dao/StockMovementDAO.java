@@ -13,12 +13,12 @@ public class StockMovementDAO {
 
     // Create
     public void createStockMovement(StockMovement stockMovement) {
-        String sql = "INSERT INTO stock_movement (quantity, is_enter, date_movement, componenr_id) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO stock_movement (quantity, is_enter, date_movement, component_id) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, stockMovement.getQuantity());
             statement.setBoolean(2, stockMovement.isEnter());
             statement.setTimestamp(3, stockMovement.getDateMovement());
-            statement.setInt(4, stockMovement.getComponent().getComponenr_id());
+            statement.setInt(4, stockMovement.getComponent().getComponent_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating StockMovement: " + e.getMessage());
@@ -27,13 +27,13 @@ public class StockMovementDAO {
 
     // Read (by ID)
     public StockMovement getStockMovementById(int stockMovementId) {
-        String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, componenr_id FROM stock_movement WHERE stock_movement_id = ?";
+        String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, component_id FROM stock_movement WHERE stock_movement_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, stockMovementId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     ComponentDAO componentDAO = new ComponentDAO();
-                    Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                    Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
 
                     return new StockMovement(
                             resultSet.getInt("stock_movement_id"),
@@ -52,7 +52,7 @@ public class StockMovementDAO {
 
     // Read (all)
     public List<StockMovement> getAllStockMovements() {
-        String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, componenr_id FROM stock_movement";
+        String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, component_id FROM stock_movement";
         List<StockMovement> stockMovements = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -60,7 +60,7 @@ public class StockMovementDAO {
             ComponentDAO componentDAO = new ComponentDAO();
 
             while (resultSet.next()) {
-                Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
 
                 stockMovements.add(new StockMovement(
                         resultSet.getInt("stock_movement_id"),
@@ -78,12 +78,12 @@ public class StockMovementDAO {
 
     // Update
     public void updateStockMovement(StockMovement stockMovement) {
-        String sql = "UPDATE stock_movement SET quantity = ?, is_enter = ?, date_movement = ?, componenr_id = ? WHERE stock_movement_id = ?";
+        String sql = "UPDATE stock_movement SET quantity = ?, is_enter = ?, date_movement = ?, component_id = ? WHERE stock_movement_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, stockMovement.getQuantity());
             statement.setBoolean(2, stockMovement.isEnter());
             statement.setTimestamp(3, stockMovement.getDateMovement());
-            statement.setInt(4, stockMovement.getComponent().getComponenr_id());
+            statement.setInt(4, stockMovement.getComponent().getComponent_id());
             statement.setInt(5, stockMovement.getStockMovementId());
             statement.executeUpdate();
         } catch (SQLException e) {

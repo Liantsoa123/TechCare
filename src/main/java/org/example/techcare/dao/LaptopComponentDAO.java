@@ -14,10 +14,10 @@ public class LaptopComponentDAO {
 
     // Create
     public void createLaptopComponent(LaptopComponent laptopComponent) {
-        String sql = "INSERT INTO laptop_component (laptop_id, componenr_id, quantity) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO laptop_component (laptop_id, component_id, quantity) VALUES (?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, laptopComponent.getLaptop().getLaptop_id());
-            statement.setInt(2, laptopComponent.getComponent().getComponenr_id());
+            statement.setInt(2, laptopComponent.getComponent().getComponent_id());
             statement.setInt(3, laptopComponent.getQuantity());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -27,7 +27,7 @@ public class LaptopComponentDAO {
 
     //Read (by id_laptop)
     public LaptopComponent getLaptopComponentByLaptopId(int laptopId) {
-        String sql = "SELECT laptop_id, componenr_id, quantity FROM laptop_component WHERE laptop_id = ?";
+        String sql = "SELECT laptop_id, component_id, quantity FROM laptop_component WHERE laptop_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, laptopId);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -36,7 +36,7 @@ public class LaptopComponentDAO {
                     ComponentDAO componentDAO = new ComponentDAO();
 
                     Laptop laptop = laptopDAO.getLaptopById(resultSet.getInt("laptop_id"));
-                    Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                    Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
 
                     return new LaptopComponent(
                             laptop,
@@ -53,7 +53,7 @@ public class LaptopComponentDAO {
 
     // Read (all)
     public List<LaptopComponent> getAllLaptopComponents() {
-        String sql = "SELECT laptop_id, componenr_id, quantity FROM laptop_component";
+        String sql = "SELECT laptop_id, component_id, quantity FROM laptop_component";
         List<LaptopComponent> laptopComponents = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
@@ -63,7 +63,7 @@ public class LaptopComponentDAO {
 
             while (resultSet.next()) {
                 Laptop laptop = laptopDAO.getLaptopById(resultSet.getInt("laptop_id"));
-                Component component = componentDAO.getComponentById(resultSet.getInt("componenr_id"));
+                Component component = componentDAO.getComponentById(resultSet.getInt("component_id"));
 
                 laptopComponents.add(new LaptopComponent(
                         laptop,
@@ -79,11 +79,11 @@ public class LaptopComponentDAO {
 
     // Update
     public void updateLaptopComponent(LaptopComponent laptopComponent) {
-        String sql = "UPDATE laptop_component SET quantity = ? WHERE laptop_id = ? AND componenr_id = ?";
+        String sql = "UPDATE laptop_component SET quantity = ? WHERE laptop_id = ? AND component_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, laptopComponent.getQuantity());
             statement.setInt(2, laptopComponent.getLaptop().getLaptop_id());
-            statement.setInt(3, laptopComponent.getComponent().getComponenr_id());
+            statement.setInt(3, laptopComponent.getComponent().getComponent_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while updating LaptopComponent: " + e.getMessage());
@@ -92,7 +92,7 @@ public class LaptopComponentDAO {
 
     // Delete
     public void deleteLaptopComponent(int laptopId, int componentId) {
-        String sql = "DELETE FROM laptop_component WHERE laptop_id = ? AND componenr_id = ?";
+        String sql = "DELETE FROM laptop_component WHERE laptop_id = ? AND component_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, laptopId);
             statement.setInt(2, componentId);
