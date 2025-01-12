@@ -14,12 +14,13 @@ import java.util.List;
 public class ComponentDAO {
     // Create
     public void createComponent(Component component) {
-        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_laptop_id) VALUES ( ?, ?, ?,?)";
+        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_laptop_id, model) VALUES ( ?, ?, ?,?,?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
             statement.setInt(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(4, component.getBrandComponent().getBrandComponentId());
+            statement.setString(5,component.getModel());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating component: " + e.getMessage());
@@ -46,7 +47,8 @@ public class ComponentDAO {
                             resultSet.getBigDecimal("unite_price"),
                             resultSet.getInt("capacity"),
                             typeComponent,
-                            brandComponent
+                            brandComponent,
+                            resultSet.getString("model")
                             );
                 }
             }
@@ -78,7 +80,9 @@ public class ComponentDAO {
                         resultSet.getBigDecimal("unite_price"),
                         resultSet.getInt("capacity"),
                         typeComponent,
-                        brandComponent
+                        brandComponent,
+                        resultSet.getString("model")
+
                 ));
             }
         } catch (SQLException e) {
@@ -89,13 +93,14 @@ public class ComponentDAO {
 
     // Update
     public void updateComponent(Component component) {
-        String sql = "UPDATE component SET  unite_price = ?, capacity = ?, type_component_id = ? , brand_component_id = ? WHERE component_id = ?";
+        String sql = "UPDATE component SET  unite_price = ?, capacity = ?, type_component_id = ? , brand_component_id = ?, model = ? WHERE component_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
             statement.setInt(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
-            statement.setInt(5, component.getComponent_id());
+            statement.setInt(6, component.getComponent_id());
             statement.setInt(4,component.getBrandComponent().getBrandComponentId() );
+            statement.setString(5, component.getModel());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while updating component: " + e.getMessage());

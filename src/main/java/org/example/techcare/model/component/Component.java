@@ -11,16 +11,18 @@ public class Component {
     private int capacity;
     private TypeComponent typeComponent;
     private BrandComponent brandComponent;
+    private String model ;
 
     public Component() {
     }
 
-    public Component(int componenr_id, BigDecimal unite_price, int capacity, TypeComponent typeComponent , BrandComponent brandComponent) {
+    public Component(int componenr_id, BigDecimal unite_price, int capacity, TypeComponent typeComponent , BrandComponent brandComponent, String model) {
         this.component_id = componenr_id;
         this.unite_price = unite_price;
         this.capacity = capacity;
         this.typeComponent = typeComponent;
         this.brandComponent = brandComponent;
+        this.model= model;
     }
 
     public int getComponent_id() {
@@ -60,5 +62,12 @@ public class Component {
 
     public void setBrandComponent(BrandComponent brandComponent) {
         this.brandComponent = brandComponent;
+    }
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
     }
 }
