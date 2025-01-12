@@ -1,5 +1,6 @@
 package org.example.techcare.model.retour;
 
+import org.example.techcare.model.component.Component;
 import org.example.techcare.model.repair.Repair;
 
 import java.sql.Timestamp;
@@ -8,6 +9,9 @@ public class Retour {
     private int retour_id;
     private Timestamp retour_date;
     private Repair repair ;
+    private Component oldComponent;
+    private Component newComponent;
+
 
     public Retour() {
     }
@@ -16,6 +20,8 @@ public class Retour {
         this.retour_id = retour_id;
         this.retour_date = retour_date;
         this.repair = repair;
+        this.newComponent = newComponent;
+        this.oldComponent = oldComponent;
     }
 
     public int getRetour_id() {
@@ -41,4 +47,20 @@ public class Retour {
     public void setRepair(Repair repair) {
         this.repair = repair;
     }
+    public Component getOldComponent() {
+        return oldComponent;
+    }
+
+    public void setOldComponent(Component oldComponent) {
+        this.oldComponent = oldComponent;
+    }
+
+    public Component getNewComponent() {
+        return newComponent;
+    }
+
+    public void setNewComponent(Component newComponent) {
+        this.newComponent = newComponent;
+    }
+
 }

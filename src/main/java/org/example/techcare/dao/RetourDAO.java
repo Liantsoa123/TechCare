@@ -125,8 +125,11 @@ public class RetourDAO {
         List<Retour> retourList = new ArrayList<>();
         List<InfoRepair> infoRepairs = InfoRepair.getByIdTypeLaptopAndIdTypeComponentAndIsUpgrade(isUpgrade, idTypeLaptop, idTypeComponent);
         for (InfoRepair infoRepair : infoRepairs) {
-            if (getRetourByRepairId(infoRepair.getRepair().getRepair_id()) != null) {
-                retourList.add(getRetourByRepairId(infoRepair.getRepair().getRepair_id()));
+            Retour  retour = getRetourByRepairId(infoRepair.getRepair().getRepair_id());
+            if (retour!= null) {
+                retour.setOldComponent(infoRepair.getOldComponent());
+                retour.setNewComponent(infoRepair.getNewComponent());
+                retourList.add(retour);
             }
         }
         return retourList;
