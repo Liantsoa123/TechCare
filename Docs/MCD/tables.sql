@@ -69,6 +69,7 @@ CREATE TABLE component(
    component_id SERIAL,
    unite_price NUMERIC(15,2)   NOT NULL,
    capacity NUMERIC(15,2)  ,
+   model VARCHAR(250)  NOT NULL,
    brand_component_id INTEGER NOT NULL,
    type_component_id INTEGER NOT NULL,
    PRIMARY KEY(component_id),
