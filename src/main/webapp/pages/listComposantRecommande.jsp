@@ -42,10 +42,10 @@
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listes Composants</h4>
+            <h4 class="card-title">Listes Composants conseilés par mois</h4>
             </p>
             <div class="table-responsive">
-                <table class="table">
+                <table class="table">f
                     <thead>
                     <tr>
                         <th>#</th>
