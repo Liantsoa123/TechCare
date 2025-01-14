@@ -1,17 +1,15 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.techcare.model.retour.Retour" %>
-<%@ page import="org.example.techcare.model.repair.Repair" %>
 <%@ page import="org.example.techcare.model.component.Component" %>
 <%
     List<Component> components = (List<Component>) request.getAttribute("components");
 %>
 <%--Page Header--%>
 <div class="page-header">
-    <h3 class="page-title"> Insert Retour </h3>
+    <h3 class="page-title"> Insert Component </h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Retour</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Insertion Composant Recommandé</li>
+            <li class="breadcrumb-item"><a href="#">Component Recommended</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Insertion Component Recommended</li>
         </ol>
     </nav>
 </div>
