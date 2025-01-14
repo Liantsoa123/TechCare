@@ -127,3 +127,9 @@ CREATE TABLE laptop_component(
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
    FOREIGN KEY(component_id) REFERENCES component(component_id)
 );
+CREATE TABLE  composant_recommande(
+    id SERIAL,
+    component_id INTEGER,
+    date_recommande date,
+    FOREIGN KEY (component_id) REFERENCES  component(component_id)
+);
