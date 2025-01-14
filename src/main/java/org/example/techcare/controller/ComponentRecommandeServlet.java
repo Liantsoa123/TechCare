@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.techcare.dao.ComponentDAO;
 import org.example.techcare.dao.ComponentRecommandeDAO;
-import org.example.techcare.model.ComponentRecommande;
+import org.example.techcare.model.ComponentRecommande.ComponentRecommande;
 import org.example.techcare.model.component.Component;
 
 import java.io.IOException;

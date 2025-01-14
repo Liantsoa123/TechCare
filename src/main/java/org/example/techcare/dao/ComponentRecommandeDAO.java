@@ -1,6 +1,6 @@
 package org.example.techcare.dao;
 
-import org.example.techcare.model.ComponentRecommande;
+import org.example.techcare.model.ComponentRecommande.ComponentRecommande;
 import org.example.techcare.model.component.Component;
 import org.example.techcare.model.utils.ConnectionBdd;
 
