@@ -91,12 +91,12 @@ public class ComponentRecommandeDAO {
         }
     }
 
+    // Get by month
     public List<ComponentRecommande> getByMonth(Date date) {
-        // Extract year and month from the date
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTime(date);
         int year = cal.get(java.util.Calendar.YEAR);
-        int month = cal.get(java.util.Calendar.MONTH) + 1; // MONTH is 0-based, so we add 1
+        int month = cal.get(java.util.Calendar.MONTH) + 1;
 
         String sql = "SELECT * " +
                 "FROM composant_recommande cr " +
