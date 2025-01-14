@@ -1,5 +1,4 @@
-package org.example.techcare.model;
-import org.example.techcare.model.laptop.Laptop;
+package org.example.techcare.model.ComponentRecommande;
 import org.example.techcare.model.component.Component;
 
 import java.sql.Date;
