@@ -1,15 +1,15 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.techcare.model.ComponentRecommande" %>
+<%@ page import="org.example.techcare.model.ComponentRecommanded.ComponentRecommanded" %>
 <%
-    List<ComponentRecommande> componentRecommandes = (List<ComponentRecommande>) request.getAttribute("componentRecommandes");
+    List<ComponentRecommanded> componentRecommandes = (List<ComponentRecommanded>) request.getAttribute("componentRecommandes");
 %>
 <%--Page Header--%>
 <div class="page-header">
-    <h3 class="page-title"> Listes Components Recommandés </h3>
+    <h3 class="page-title">Lists of recommanded components </h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Composant</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Listes Composants</li>
+            <li class="breadcrumb-item"><a href="#">Recommanded components</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lists </li>
         </ol>
     </nav>
 </div>
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
-                <form class="forms-sample" action="./componentRecommandeServlet" method="post">
+                <form class="forms-sample" action="./componentRecommandedServlet" method="post">
                     <input type="hidden" name="mode" value="S" >
                     <div class="form-group">
                         <label for="mois"> Mois</label>
@@ -42,10 +42,10 @@
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listes Composants conseilés par mois</h4>
+            <h4 class="card-title">Lists of recommended components by month</h4>
             </p>
             <div class="table-responsive">
-                <table class="table">f
+                <table class="table">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -58,7 +58,7 @@
 
                         <%
                             int id = 1;
-                            for (ComponentRecommande componentRecommande1 : componentRecommandes) {
+                            for (ComponentRecommanded componentRecommande1 : componentRecommandes) {
                         %>
                         <tr>
                         <td><%=id%></td>

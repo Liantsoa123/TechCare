@@ -1,17 +1,15 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.techcare.model.retour.Retour" %>
-<%@ page import="org.example.techcare.model.repair.Repair" %>
 <%@ page import="org.example.techcare.model.component.Component" %>
 <%
     List<Component> components = (List<Component>) request.getAttribute("components");
 %>
 <%--Page Header--%>
 <div class="page-header">
-    <h3 class="page-title"> Insert Retour </h3>
+    <h3 class="page-title"> Insert Component </h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Retour</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Insertion Composant Recommandé</li>
+            <li class="breadcrumb-item"><a href="#">Recommanded componnet</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Insertion recommanded Components</li>
         </ol>
     </nav>
 </div>
@@ -22,7 +20,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Insertion</h4>
-                <form class="forms-sample" action="./componentRecommandeServlet" method="post">
+                <form class="forms-sample" action="./componentRecommandedServlet" method="post">
                     <input type="hidden" name="mode" value="insert" >
                     <div class="form-group">
                         <label for="mois"> Mois</label>

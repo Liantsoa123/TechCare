@@ -1,6 +1,6 @@
 package org.example.techcare.dao;
 
-import org.example.techcare.model.ComponentRecommande;
+import org.example.techcare.model.ComponentRecommanded.ComponentRecommanded;
 import org.example.techcare.model.component.Component;
 import org.example.techcare.model.utils.ConnectionBdd;
 
@@ -8,10 +8,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ComponentRecommandeDAO {
+public class ComponentRecommandedDAO {
 
     // Create
-    public void createComponentRecommande(ComponentRecommande componentRecommande) {
+    public void createComponentRecommanded(ComponentRecommanded componentRecommande) {
         String sql = "INSERT INTO composant_recommande (component_id, date_recommande) VALUES (?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, componentRecommande.getComponent().getComponent_id());
@@ -23,7 +23,7 @@ public class ComponentRecommandeDAO {
     }
 
     // Read (by ID)
-    public ComponentRecommande getComponentRecommandeById(int id) {
+    public ComponentRecommanded getComponentRecommandeById(int id) {
         String sql = "SELECT cr.id, cr.date_recommande, c.id AS component_id, c.name AS component_name " +
                 "FROM composant_recommande cr " +
                 "JOIN component c ON cr.component_id = c.id " +
@@ -33,7 +33,7 @@ public class ComponentRecommandeDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     Component component =new ComponentDAO().getComponentById(resultSet.getInt("component_id"));
-                    return new ComponentRecommande(
+                    return new ComponentRecommanded(
                             resultSet.getInt("id"),
                             resultSet.getDate("date_recommande"),
                             component
@@ -47,15 +47,15 @@ public class ComponentRecommandeDAO {
     }
 
     // Read (all)
-    public List<ComponentRecommande> getAllComponentRecommandes() {
+    public List<ComponentRecommanded> getAllComponentRecommandes() {
         String sql = "SELECT * from composant_recommande ";
-        List<ComponentRecommande> componentRecommandes = new ArrayList<>();
+        List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
                 Component component =new ComponentDAO().getComponentById(resultSet.getInt("component_id"));
-                componentRecommandes.add(new ComponentRecommande(
+                componentRecommandes.add(new ComponentRecommanded(
                         resultSet.getInt("id"),
                         resultSet.getDate("date_recommande"),
                         component
@@ -68,7 +68,7 @@ public class ComponentRecommandeDAO {
     }
 
     // Update
-    public void updateComponentRecommande(ComponentRecommande componentRecommande) {
+    public void updateComponentRecommande(ComponentRecommanded componentRecommande) {
         String sql = "UPDATE composant_recommander SET component_id = ?, date_recommande = ? WHERE id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, componentRecommande.getComponent().getComponent_id());
@@ -91,25 +91,25 @@ public class ComponentRecommandeDAO {
         }
     }
 
-    public List<ComponentRecommande> getByMonth(Date date) {
-        // Extract year and month from the date
+    // Get by month
+    public List<ComponentRecommanded> getByMonth(Date date) {
         java.util.Calendar cal = java.util.Calendar.getInstance();
         cal.setTime(date);
         int year = cal.get(java.util.Calendar.YEAR);
-        int month = cal.get(java.util.Calendar.MONTH) + 1; // MONTH is 0-based, so we add 1
+        int month = cal.get(java.util.Calendar.MONTH) + 1;
 
         String sql = "SELECT * " +
                 "FROM composant_recommande cr " +
                 "JOIN component c ON cr.component_id = c.component_id " +
                 "WHERE EXTRACT(YEAR FROM cr.date_recommande) = ? AND EXTRACT(MONTH FROM cr.date_recommande) = ?";
-        List<ComponentRecommande> componentRecommandes = new ArrayList<>();
+        List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, year);
             statement.setInt(2, month);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Component component = new ComponentDAO().getComponentById(resultSet.getInt("component_id"));
-                    componentRecommandes.add(new ComponentRecommande(
+                    componentRecommandes.add(new ComponentRecommanded(
                             resultSet.getInt("id"),
                             resultSet.getDate("date_recommande"),
                             component

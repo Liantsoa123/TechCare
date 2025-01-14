@@ -30,8 +30,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="repair">Repair</label>
-                        <select class="form-control" id="repair" name="repairId">
+                        <label for="repairselect">Repair</label>
+                        <select class="form-control" id="repairselect" name="repairId">
                             <%
                                 for (Repair repair : repairs) { %>
                             <option value="<%=repair.getRepair_id()%>" ><%=repair.getLaptop().getCustomer().getName()%></option>

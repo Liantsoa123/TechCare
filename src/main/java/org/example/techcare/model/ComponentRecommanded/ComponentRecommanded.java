@@ -1,21 +1,20 @@
-package org.example.techcare.model;
-import org.example.techcare.model.laptop.Laptop;
+package org.example.techcare.model.ComponentRecommanded;
 import org.example.techcare.model.component.Component;
 
 import java.sql.Date;
 
-public class ComponentRecommande {
+public class ComponentRecommanded {
     private int id;
     private  Component component;
     private Date date_recommande;
 
-    public ComponentRecommande(int id, Date date_recommande, Component component) {
+    public ComponentRecommanded(int id, Date date_recommande, Component component) {
         this.id = id;
         this.date_recommande = date_recommande;
         this.component = component;
     }
 
-    public ComponentRecommande() {
+    public ComponentRecommanded() {
     }
 
     public int getId() {
