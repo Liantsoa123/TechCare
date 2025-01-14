@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.techcare.model.ComponentRecommande.ComponentRecommanded" %>
+<%@ page import="org.example.techcare.model.ComponentRecommanded.ComponentRecommanded" %>
 <%
     List<ComponentRecommanded> componentRecommandes = (List<ComponentRecommanded>) request.getAttribute("componentRecommandes");
 %>

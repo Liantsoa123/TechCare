@@ -1,4 +1,4 @@
-package org.example.techcare.model.ComponentRecommande;
+package org.example.techcare.model.ComponentRecommanded;
 import org.example.techcare.model.component.Component;
 
 import java.sql.Date;
