@@ -5,11 +5,11 @@
 %>
 <%--Page Header--%>
 <div class="page-header">
-    <h3 class="page-title"> Listes Components Recommandés </h3>
+    <h3 class="page-title">Lists of recommanded components </h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Composant</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Listes Composants</li>
+            <li class="breadcrumb-item"><a href="#">Recommanded components</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Lists </li>
         </ol>
     </nav>
 </div>
@@ -42,7 +42,7 @@
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listes Composants conseilés par mois</h4>
+            <h4 class="card-title">Lists of recommended components by month</h4>
             </p>
             <div class="table-responsive">
                 <table class="table">f
