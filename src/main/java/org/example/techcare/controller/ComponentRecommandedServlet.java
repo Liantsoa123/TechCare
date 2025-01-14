@@ -7,8 +7,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.example.techcare.dao.ComponentDAO;
-import org.example.techcare.dao.ComponentRecommandeDAO;
-import org.example.techcare.model.ComponentRecommande.ComponentRecommande;
+import org.example.techcare.dao.ComponentRecommandedDAO;
+import org.example.techcare.model.ComponentRecommande.ComponentRecommanded;
 import org.example.techcare.model.component.Component;
 
 import java.io.IOException;
@@ -16,10 +16,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "ComponentRecommandeServlet", value = "/componentRecommandeServlet")
-public class ComponentRecommandeServlet extends HttpServlet {
+@WebServlet(name = "ComponentRecommandedServlet", value = "/componentRecommandedServlet")
+public class ComponentRecommandedServlet extends HttpServlet {
 
-    private final ComponentRecommandeDAO componentRecommandeDAO = new ComponentRecommandeDAO();
+    private final ComponentRecommandedDAO componentRecommandeDAO = new ComponentRecommandedDAO();
     private final ComponentDAO componentDAO = new ComponentDAO();
 
     @Override
@@ -31,15 +31,15 @@ public class ComponentRecommandeServlet extends HttpServlet {
             int componentId = Integer.parseInt(req.getParameter("componentId"));
             Date dateRecommande = Date.valueOf(req.getParameter("dateRecommande"));
             Component component = componentDAO.getComponentById(componentId);
-            ComponentRecommande componentRecommande = new ComponentRecommande(1, dateRecommande, component);
-            componentRecommandeDAO.createComponentRecommande(componentRecommande);
+            ComponentRecommanded componentRecommande = new ComponentRecommanded(1, dateRecommande, component);
+            componentRecommandeDAO.createComponentRecommanded(componentRecommande);
             System.out.println("insertion componentRecommande");
             req.setAttribute("message", "ComponentRecommande successfully inserted.");
             req.setAttribute("page", "insertComposantRecommande");
 
         } else if (mode.equals("S")) {
 
-            List<ComponentRecommande> componentRecommandes = new ArrayList<>();
+            List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
             if (req.getParameter("dateRecommande") != null && !req.getParameter("dateRecommande").isEmpty()) {
                 Date dateRecommande = Date.valueOf(req.getParameter("dateRecommande"));
                 componentRecommandes = componentRecommandeDAO.getByMonth(dateRecommande);
@@ -72,7 +72,7 @@ public class ComponentRecommandeServlet extends HttpServlet {
 
         } else if (mode.equals("list")) {
 
-            List<ComponentRecommande> componentRecommandes = componentRecommandeDAO.getAllComponentRecommandes();
+            List<ComponentRecommanded> componentRecommandes = componentRecommandeDAO.getAllComponentRecommandes();
             req.setAttribute("componentRecommandes", componentRecommandes);
             req.setAttribute("page", "listComposantRecommande");
         }

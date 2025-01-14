@@ -20,7 +20,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Insertion</h4>
-                <form class="forms-sample" action="./componentRecommandeServlet" method="post">
+                <form class="forms-sample" action="./componentRecommandedServlet" method="post">
                     <input type="hidden" name="mode" value="insert" >
                     <div class="form-group">
                         <label for="mois"> Mois</label>

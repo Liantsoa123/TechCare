@@ -1,7 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.techcare.model.ComponentRecommande.ComponentRecommande" %>
+<%@ page import="org.example.techcare.model.ComponentRecommande.ComponentRecommanded" %>
 <%
-    List<ComponentRecommande> componentRecommandes = (List<ComponentRecommande>) request.getAttribute("componentRecommandes");
+    List<ComponentRecommanded> componentRecommandes = (List<ComponentRecommanded>) request.getAttribute("componentRecommandes");
 %>
 <%--Page Header--%>
 <div class="page-header">
@@ -21,7 +21,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
-                <form class="forms-sample" action="./componentRecommandeServlet" method="post">
+                <form class="forms-sample" action="./componentRecommandedServlet" method="post">
                     <input type="hidden" name="mode" value="S" >
                     <div class="form-group">
                         <label for="mois"> Mois</label>
@@ -45,7 +45,7 @@
             <h4 class="card-title">Lists of recommended components by month</h4>
             </p>
             <div class="table-responsive">
-                <table class="table">f
+                <table class="table">
                     <thead>
                     <tr>
                         <th>#</th>
@@ -58,7 +58,7 @@
 
                         <%
                             int id = 1;
-                            for (ComponentRecommande componentRecommande1 : componentRecommandes) {
+                            for (ComponentRecommanded componentRecommande1 : componentRecommandes) {
                         %>
                         <tr>
                         <td><%=id%></td>

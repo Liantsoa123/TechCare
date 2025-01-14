@@ -45,6 +45,10 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="#">Insertion</a></li>
                     <li class="nav-item"><a class="nav-link" href="#">List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet">Insert Recommanded</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet?mode=list">List
+                        Recommanded</a></li>
                 </ul>
             </div>
         </li>
@@ -82,25 +86,6 @@
                 </ul>
             </div>
         </li>
-
-        <%--ComponentRecommande--%>
-        <%--Retour--%>
-        <li class="nav-item menu-items">
-            <a class="nav-link" data-toggle="collapse" href="#ComponentRecommande" aria-expanded="false" aria-controls="ui-basic">
-        <span class="menu-icon">
-          <i class="mdi mdi-memory"></i>
-        </span>
-                <span class="menu-title">ComponentRecommande</span>
-                <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="ComponentRecommande">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="./componentRecommandeServlet">Insertion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="./componentRecommandeServlet?mode=list">List</a></li>
-                </ul>
-            </div>
-        </li>
-
 
     </ul>
 </nav>
