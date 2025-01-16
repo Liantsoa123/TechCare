@@ -83,6 +83,7 @@
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"><a class="nav-link" href="./retourServlet">Insertion</a></li>
                     <li class="nav-item"><a class="nav-link" href="./retourServlet?mode=L">List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./retourServlet?mode=SCL">List Client</a></li>
                 </ul>
             </div>
         </li>
