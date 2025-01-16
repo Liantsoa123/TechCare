@@ -136,7 +136,7 @@ public class RetourDAO {
         return retourList;
     }
     public List<Retour> getByDate( Date date) {
-        String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE retour_date = ? ";
+        String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE DATE(retour_date) = ? ";
         List<Retour> retourList = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)){
              statement.setDate(1,date);

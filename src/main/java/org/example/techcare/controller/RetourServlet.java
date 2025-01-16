@@ -27,10 +27,18 @@ public class RetourServlet  extends HttpServlet {
         String mode = req.getParameter("mode");
         //INSERTION
         if (mode==null){
-            Timestamp dateRetour = Timestamp.valueOf(req.getParameter("retourDate"));
+//            Timestamp dateRetour = Timestamp.valueOf(req.getParameter("retourDate"));
+            // Get the parameter from the form
+            String dateString = req.getParameter("retourDate");
+
+// Convert from HTML datetime-local format to Timestamp format
+            dateString = dateString.replace("T", " ") + ":00";
+
+// Now create the Timestamp
+            Timestamp dateRetour = Timestamp.valueOf(dateString);
             int repairId = Integer.parseInt(req.getParameter("repairId"));
             Repair repair = new RepairDAO().getRepairById(repairId);
-            Retour retour = new Retour(1,dateRetour, repair);
+            Retour retour = new Retour(0,dateRetour, repair);
             new RetourDAO().createRetour(retour);
             System.out.println("insertion Retour");
         } else if (mode.equals("S")) {
@@ -45,12 +53,14 @@ public class RetourServlet  extends HttpServlet {
             req.setAttribute("laptoptypes", laptopTypes);
             req.setAttribute("page", "listRetour");
             System.out.println("Search Retour");
-        } else if (mode.equals("S")){
+        } else if (mode.equals("SC")){
             java.sql.Date retourDate = java.sql.Date.valueOf(req.getParameter("retourDate"));
             List<Retour> retourList  = new RetourDAO().getByDate(retourDate );
-            req.setAttribute("retour", retourList);
+            req.setAttribute("retours", retourList);
             req.setAttribute("page", "listAchatClient");
-
+            System.out.println("list client " + retourList.size());
+            System.out.println("Get all client ");
+            System.out.println("Date"+ retourDate.toString());
 
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
@@ -73,6 +83,11 @@ public class RetourServlet  extends HttpServlet {
             req.setAttribute("typecomponents", typeComponents);
             req.setAttribute("laptoptypes", laptopTypes);
             req.setAttribute("page","listRetour");
+            System.out.println("Go to Retour list");
+
+
+        }else if (mode.equals("SCL")){
+            req.setAttribute("page","listAchatClient");
             System.out.println("Go to Retour list");
 
         }
