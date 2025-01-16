@@ -4,8 +4,6 @@
 <%@ page import="org.example.techcare.model.retour.Retour" %>
 <%@ page import="org.example.techcare.model.component.TypeComponent" %>
 <%@ page import="org.example.techcare.model.laptotype.LaptopType" %><%
-    List<TypeComponent> typeComponents = (List<TypeComponent>) request.getAttribute("typecomponents");
-    List<LaptopType> laptopTypes = (List<LaptopType>) request.getAttribute("laptoptypes");
     List<Retour> retours = new ArrayList<>();
     if ((List<Retour>) request.getAttribute("retours") != null) {
         retours = (List<Retour>) request.getAttribute("retours");
@@ -35,7 +33,7 @@
                     <input type="hidden" value="SC" name="mode" >
                     <div class="form-group">
                         <label for="retourDate">Retour date</label>
-                        <input type="datetime-local" class="form-control" id="retourDate"
+                        <input type="date" class="form-control" id="retourDate"
                                placeholder="Retour Date" name="retourDate">
                     </div>
 
@@ -71,12 +69,7 @@
                         %>
                         <td><%=id%></td>
                         <td><%=retour.getRepair().getLaptop().getCustomer().getName()%></td>
-                        <td><%=retour.getRepair().getLaptop().getSerial_number()%></td>
-                        <td><%=retour.getRepair().getLaptop().getLaptopType().getName()%></td>
-                        <td><%=retour.getNewComponent().getTypeComponent().getName()%> </td>
-                        <td><%=retour.getOldComponent().getModel()%></td>
-                        <td><%=retour.getNewComponent().getModel()%></td>
-                        <td><%=retour.getRetour_date()%>/td>
+                        <td><%=retour.getRepair().getLaptop().getCustomer().getEmail()%></td>
                                 <%
                                 id++;
                             }
