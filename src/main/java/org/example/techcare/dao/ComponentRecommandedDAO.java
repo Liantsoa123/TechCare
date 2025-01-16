@@ -128,7 +128,6 @@ public class ComponentRecommandedDAO {
         cal.setTime(date);
         int year = cal.get(java.util.Calendar.YEAR);
         int month = cal.get(java.util.Calendar.MONTH) + 1;
-        System.out.println("Year" + year);
 
         String sql = "SELECT * " +
                 "FROM composant_recommande cr " +
@@ -137,7 +136,7 @@ public class ComponentRecommandedDAO {
         List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, year);
-
+            statement.setInt(2, month);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     Component component = new ComponentDAO().getComponentById(resultSet.getInt("component_id"));

@@ -5,6 +5,7 @@ import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.retour.Retour;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -131,6 +132,29 @@ public class RetourDAO {
                 retour.setNewComponent(infoRepair.getNewComponent());
                 retourList.add(retour);
             }
+        }
+        return retourList;
+    }
+    public List<Retour> getByDate( Date date) {
+        String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE retour_date = ? ";
+        List<Retour> retourList = new ArrayList<>();
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)){
+             statement.setDate(1,date);
+             ResultSet resultSet = statement.executeQuery() ;
+
+            while (resultSet.next()) {
+                // Fetching related Repair data
+                RepairDAO repairDAO = new RepairDAO();
+                Repair repair = repairDAO.getRepairById(resultSet.getInt("repair_id"));
+
+                retourList.add(new Retour(
+                        resultSet.getInt("retour_id"),
+                        resultSet.getTimestamp("retour_date"),
+                        repair
+                ));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving all retours: " + e.getMessage());
         }
         return retourList;
     }
