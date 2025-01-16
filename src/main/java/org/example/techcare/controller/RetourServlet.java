@@ -17,6 +17,7 @@ import org.example.techcare.model.retour.Retour;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "RetourServlet", value = "/retourServlet")
@@ -44,6 +45,13 @@ public class RetourServlet  extends HttpServlet {
             req.setAttribute("laptoptypes", laptopTypes);
             req.setAttribute("page", "listRetour");
             System.out.println("Search Retour");
+        } else if (mode.equals("SC")){
+            java.sql.Date retourDate = java.sql.Date.valueOf(req.getParameter("retourDate"));
+            List<Retour> retourList  = new RetourDAO().getByDate(retourDate );
+            req.setAttribute("retours", retourList);
+            req.setAttribute("page", "listAchatClient");
+
+
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
         dispatcher.forward(req, resp);

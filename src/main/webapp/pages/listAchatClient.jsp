@@ -4,8 +4,6 @@
 <%@ page import="org.example.techcare.model.retour.Retour" %>
 <%@ page import="org.example.techcare.model.component.TypeComponent" %>
 <%@ page import="org.example.techcare.model.laptotype.LaptopType" %><%
-    List<TypeComponent> typeComponents = (List<TypeComponent>) request.getAttribute("typecomponents");
-    List<LaptopType> laptopTypes = (List<LaptopType>) request.getAttribute("laptoptypes");
     List<Retour> retours = new ArrayList<>();
     if ((List<Retour>) request.getAttribute("retours") != null) {
         retours = (List<Retour>) request.getAttribute("retours");
@@ -31,21 +29,8 @@
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
                 <form class="forms-sample" action="./retourServlet" method="post">
-                    <div class="form-group">
-                        <input type="hidden" name="mode" value="S" >
-                        <label for="typeComponent">Type Component</label>
-                        <select class="form-control" id="typecomponent" name="typecomponentId">
-                            <%
-                                for (TypeComponent typeComponent : typeComponents) { %>
-                            <option value="<%=typeComponent.getType_component_id()%>" ><%=typeComponent.getName()%></option>
-                            <%
-                                }
-                            %>
-                        </select>
-                    </div>
 
-
-
+                    <input type="hidden" value="SC" name="mode" >
                     <div class="form-group">
                         <label for="retourDate">Retour date</label>
                         <input type="datetime-local" class="form-control" id="retourDate"
@@ -83,13 +68,7 @@
                             for ( Retour retour : retours ){
                         %>
                         <td><%=id%></td>
-                        <td><%=retour.getRepair().getLaptop().getCustomer().getName()%></td>
-                        <td><%=retour.getRepair().getLaptop().getSerial_number()%></td>
-                        <td><%=retour.getRepair().getLaptop().getLaptopType().getName()%></td>
-                        <td><%=retour.getNewComponent().getTypeComponent().getName()%> </td>
-                        <td><%=retour.getOldComponent().getModel()%></td>
-                        <td><%=retour.getNewComponent().getModel()%></td>
-                        <td><%=retour.getRetour_date()%>/td>
+
                                 <%
                                 id++;
                             }
