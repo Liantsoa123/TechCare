@@ -31,21 +31,8 @@
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
                 <form class="forms-sample" action="./retourServlet" method="post">
-                    <div class="form-group">
-                        <input type="hidden" name="mode" value="S" >
-                        <label for="typeComponent">Type Component</label>
-                        <select class="form-control" id="typecomponent" name="typecomponentId">
-                            <%
-                                for (TypeComponent typeComponent : typeComponents) { %>
-                            <option value="<%=typeComponent.getType_component_id()%>" ><%=typeComponent.getName()%></option>
-                            <%
-                                }
-                            %>
-                        </select>
-                    </div>
 
-
-
+                    <input type="hidden" value="SC" name="mode" >
                     <div class="form-group">
                         <label for="retourDate">Retour date</label>
                         <input type="datetime-local" class="form-control" id="retourDate"
