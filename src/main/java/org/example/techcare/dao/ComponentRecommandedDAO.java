@@ -121,4 +121,35 @@ public class ComponentRecommandedDAO {
         }
         return componentRecommandes;
     }
+
+    // Get by year
+    public List<ComponentRecommanded> getByYear(Date date) {
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(java.util.Calendar.YEAR);
+        int month = cal.get(java.util.Calendar.MONTH) + 1;
+
+        String sql = "SELECT * " +
+                "FROM composant_recommande cr " +
+                "JOIN component c ON cr.component_id = c.component_id " +
+                "WHERE EXTRACT(YEAR FROM cr.date_recommande) = ? ";
+        List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+            statement.setInt(1, year);
+            statement.setInt(2, month);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Component component = new ComponentDAO().getComponentById(resultSet.getInt("component_id"));
+                    componentRecommandes.add(new ComponentRecommanded(
+                            resultSet.getInt("id"),
+                            resultSet.getDate("date_recommande"),
+                            component
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving ComponentRecommandes by month: " + e.getMessage());
+        }
+        return componentRecommandes;
+    }
 }

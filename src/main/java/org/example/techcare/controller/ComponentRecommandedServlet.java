@@ -42,7 +42,7 @@ public class ComponentRecommandedServlet extends HttpServlet {
             List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
             if (req.getParameter("dateRecommande") != null && !req.getParameter("dateRecommande").isEmpty()) {
                 Date dateRecommande = Date.valueOf(req.getParameter("dateRecommande"));
-                componentRecommandes = componentRecommandeDAO.getByMonth(dateRecommande);
+                componentRecommandes = componentRecommandeDAO.getByYear(dateRecommande);
                 System.out.println("getByMonth");
             } else {
                 componentRecommandes = componentRecommandeDAO.getAllComponentRecommandes();

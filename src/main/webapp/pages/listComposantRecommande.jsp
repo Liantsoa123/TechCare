@@ -24,7 +24,7 @@
                 <form class="forms-sample" action="./componentRecommandedServlet" method="post">
                     <input type="hidden" name="mode" value="S" >
                     <div class="form-group">
-                        <label for="mois"> Mois</label>
+                        <label for="mois"> Year</label>
                         <input type="date" class="form-control" id="mois"
                                placeholder="Mois" name="dateRecommande">
                     </div>
@@ -42,7 +42,7 @@
 <div class="col-lg-6 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Lists of recommended components by month</h4>
+            <h4 class="card-title">Lists of recommended components by year</h4>
             </p>
             <div class="table-responsive">
                 <table class="table">
