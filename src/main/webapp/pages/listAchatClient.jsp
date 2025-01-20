@@ -49,7 +49,7 @@
 <div class="col-lg-15 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listes Retour</h4>
+            <h4 class="card-title">Listes Clients</h4>
             </p>
             <div class="table-responsive">
                 <table class="table">
@@ -58,6 +58,7 @@
                         <th>#</th>
                         <th>Nom Client</th>
                         <th>Email</th>
+                        <th>Date de retour </th>
 
                     </tr>
                     </thead>
@@ -70,6 +71,7 @@
                         <td><%=id%></td>
                         <td><%=retour.getRepair().getLaptop().getCustomer().getName()%></td>
                         <td><%=retour.getRepair().getLaptop().getCustomer().getEmail()%></td>
+                        <td><%=retour.getRetour_date()%></td>
                                 <%
                                 id++;
                             }
