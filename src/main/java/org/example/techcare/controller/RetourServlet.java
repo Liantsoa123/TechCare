@@ -20,6 +20,8 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+import static javax.swing.text.html.HTML.Tag.HEAD;
+
 @WebServlet(name = "RetourServlet", value = "/retourServlet")
 public class RetourServlet  extends HttpServlet {
     @Override
@@ -48,9 +50,7 @@ public class RetourServlet  extends HttpServlet {
         } else if (mode.equals("SC")){
             java.sql.Date retourDate = java.sql.Date.valueOf(req.getParameter("retourDate"));
             List<Retour> retourList  = new RetourDAO().getByDate(retourDate );
-            req.setAttribute("retours", retourList);
-            req.setAttribute("page", "listAchatClient");
-
+            req.setAttribute("retours", retourList);req.setAttribute("page", "listAchatClient");
 
         }
         RequestDispatcher dispatcher = req.getRequestDispatcher("index.jsp");
