@@ -27,7 +27,7 @@ public class Repair {
         this.technician = technician;
         this.repairStatus = repairStatus;
         this.total = total;
-        this.repairStatus  = repairStatus;
+        this.repairType = repairType;
     }
 
     public int getRepair_id() {
