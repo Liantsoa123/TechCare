@@ -37,9 +37,13 @@ public class RepairServlet extends HttpServlet {
             request.setAttribute("laptopList", laptopList);
             request.setAttribute("page", "insertRepair");
 
-        } else {
+        }
+//        Go to the list of repairs page
+        else {
             List<TypeComponent> listTypeComponents = new TypeComponentDAO().getAllTypeComponents();
+            List<RepairType> listRepairTypes = new RepairTypeDAO().getAllRepairTypes();
             request.setAttribute("TypeComponent", listTypeComponents);
+            request.setAttribute("repairTypeList", listRepairTypes);
             request.setAttribute("page", "listRepair");
         }
 
@@ -58,7 +62,7 @@ public class RepairServlet extends HttpServlet {
             Timestamp dateRepair = new Timestamp(System.currentTimeMillis());
             BigDecimal total = req.getParameter("total") != null ? new BigDecimal(req.getParameter("total")) : new BigDecimal(0);
             RepairStatus repairStatus = new RepairStatusDAO().getRepairStatusById(1);
-            Repair repair = new Repair(0,dateRepair, null, laptop, technician, repairStatus , total, repairType);
+            Repair repair = new Repair(0, dateRepair, null, laptop, technician, repairStatus, total, repairType);
             new RepairDAO().createRepair(repair);
             resp.sendRedirect("repaireServlet");
             return;
@@ -66,10 +70,13 @@ public class RepairServlet extends HttpServlet {
 //        Search Repair by TypeComponent ID
         else {
             int idTypeComponent = Integer.parseInt(req.getParameter("typComponentId"));
-            List<Repair> repairs = new RepairDAO().getRepairsByTypeComponentId(idTypeComponent);
+            int idRepairType = Integer.parseInt(req.getParameter("repairTypeId"));
+            List<Repair> repairs = new RepairDAO().getRepairsByTypeComponentIdAndTypeRepairId(idTypeComponent, idRepairType);
             req.setAttribute("repairs", repairs);
             List<TypeComponent> listTypeComponents = new TypeComponentDAO().getAllTypeComponents();
             req.setAttribute("TypeComponent", listTypeComponents);
+            List<RepairType> listRepairTypes = new RepairTypeDAO().getAllRepairTypes();
+            req.setAttribute("repairTypeList", listRepairTypes);
 
             req.setAttribute("page", "listRepair");
 
