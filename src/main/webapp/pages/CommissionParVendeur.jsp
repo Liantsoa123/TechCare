@@ -3,10 +3,10 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="org.example.techcare.model.retour.Retour" %>
 <%@ page import="org.example.techcare.model.component.TypeComponent" %>
-<%@ page import="org.example.techcare.model.laptotype.LaptopType" %><%
-    List<Retour> retours = new ArrayList<>();
-    if ((List<Retour>) request.getAttribute("retours") != null) {
-        retours = (List<Retour>) request.getAttribute("retours");
+<%@ page import="org.example.techcare.dto.CommissionPeriod" %><%
+    List<CommissionPeriod> commissionPeriods = new ArrayList<>();
+    if ((List<CommissionPeriod>) request.getAttribute("commissions") != null) {
+        commissionPeriods = (List<CommissionPeriod>) request.getAttribute("commissions");
     }
 %>
 
@@ -28,7 +28,7 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
-                <form class="forms-sample" action="./retourServlet" method="post">
+                <form class="forms-sample" action="./commissionServlet" method="post">
                     <p>
                         <input type="hidden" value="SC" name="mode" >
                         <div class="form-group">
@@ -70,20 +70,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
+
                         <%
                             int id = 1;
-                            for ( Retour retour : retours ){
+                            for ( CommissionPeriod commissionPeriod : commissionPeriods ){
                         %>
+                        <tr>
                         <td><%=id%></td>
-                        <td><%=retour.getRepair().getLaptop().getCustomer().getName()%></td>
-                        <td><%=retour.getRepair().getLaptop().getCustomer().getEmail()%></td>
-                        <td><%=retour.getRetour_date()%></td>
+                        <td><%=commissionPeriod.getTechnician().getName()%></td>
+                        <td><%=commissionPeriod.getTechnician().getEmail()%></td>
+                        <td><%=commissionPeriod.getTotal()%></td>
+                        </tr>
                         <%
                                 id++;
                             }
                         %>
-                    </tr>
+
                     </tbody>
                 </table>
             </div>
