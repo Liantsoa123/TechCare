@@ -16,7 +16,7 @@ import java.util.List;
 public class RepairDAO {
     // Create
     public void createRepair(Repair repair) {
-        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id , total) VALUES (?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
@@ -24,6 +24,7 @@ public class RepairDAO {
             statement.setInt(4, repair.getTechnician().getTechnician_id()); // Using technician_id from the Technician object
             statement.setInt(5, repair.getRepairStatus().getRepair_status_id()); // Using repair_status_id from the RepairStatus object
             statement.setInt(6, repair.getRepairType().getRepair_type_id()); // Using repair_type_id from the RepairType object
+            statement.setBigDecimal(7, repair.getTotal());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating repair: " + e.getMessage());
@@ -129,19 +130,20 @@ public class RepairDAO {
     }
 
     // GET REPAIRS BY TYPE COMPONENT ID
-    public List<Repair> getRepairsByTypeComponentId(int idTypeComponent) {
+    public List<Repair> getRepairsByTypeComponentIdAndTypeRepairId(int idTypeComponent , int repairTypeId) {
         String sql = """
-            SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id
+            SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id, r.total, r.repair_type_id
             FROM repair r
             INNER JOIN repair_details rd ON r.repair_id = rd.repair_id
-            INNER JOIN component c ON rd.componenr_id = c.componenr_id
-            WHERE c.type_component_id = ?
+            INNER JOIN component c ON rd.component_id = c.component_id
+            WHERE c.type_component_id = ? and c.repair_type_id = ?
         """;
 
         List<Repair> repairs = new ArrayList<>();
 
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setInt(1, idTypeComponent);
+            statement.setInt(2, repairTypeId);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
