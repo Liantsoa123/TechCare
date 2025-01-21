@@ -1,7 +1,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.techcare.model.repair.RepairType" %>
 <%@ page import="org.example.techcare.model.technician.Technician" %>
-<%@ page import="org.example.techcare.model.laptop.Laptop" %><%
+<%@ page import="org.example.techcare.model.laptop.Laptop" %>
+<%
     List<RepairType> repairTypeList = (List<RepairType>) request.getAttribute("repairTypeList");
     List<Technician> technicianList = (List<Technician>) request.getAttribute("technicianList");
     List<Laptop> laptopList = (List<Laptop>) request.getAttribute("laptopList");
@@ -25,14 +26,15 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Insertion</h4>
-                <form class="forms-sample" action="./repairServlet" method="post">
-
+                <form class="forms-sample" action="./repaireServlet" method="post">
+                    <input type="hidden" name="mode" value="insert" >
                     <div class="form-group">
                         <label for="customer">Customer </label>
                         <select class="form-control" id="customer" name="laptopId">
                             <%
                                 for (Laptop laptop : laptopList) { %>
-                            <option value="<%=laptop.getLaptop_id()%>" ><%=laptop.getCustomer().getName()%></option>
+                            <option value="<%=laptop.getLaptop_id()%>"><%=laptop.getCustomer().getName()%>
+                            </option>
                             <%
                                 }
                             %>
@@ -44,7 +46,8 @@
                         <select class="form-control" id="repairType" name="repairTypeId">
                             <%
                                 for (RepairType repairType : repairTypeList) { %>
-                            <option value="<%=repairType.getRepair_type_id()%>" ><%=repairType.getName()%></option>
+                            <option value="<%=repairType.getRepair_type_id()%>"><%=repairType.getName()%>
+                            </option>
                             <%
                                 }
                             %>
@@ -56,7 +59,8 @@
                         <select class="form-control" id="technician" name="technicianId">
                             <%
                                 for (Technician technician : technicianList) { %>
-                            <option value="<%=technician.getTechnician_id()%>" ><%=technician.getName()%></option>
+                            <option value="<%=technician.getTechnician_id()%>"><%=technician.getName()%>
+                            </option>
                             <%
                                 }
                             %>
