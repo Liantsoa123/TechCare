@@ -92,7 +92,6 @@ CREATE TABLE repair(
    technician_id INTEGER NOT NULL,
    repair_status_id INTEGER NOT NULL,
    PRIMARY KEY(repair_id),
-   UNIQUE(laptop_id),
    FOREIGN KEY(repair_type_id) REFERENCES repair_type(repair_type_id),
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
    FOREIGN KEY(technician_id) REFERENCES technician(technician_id),
