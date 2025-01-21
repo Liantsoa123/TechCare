@@ -69,7 +69,6 @@ CREATE TABLE component(
    component_id SERIAL,
    unite_price NUMERIC(15,2)   NOT NULL,
    capacity NUMERIC(15,2)  ,
-   model VARCHAR(250)  NOT NULL,
    brand_component_id INTEGER NOT NULL,
    type_component_id INTEGER NOT NULL,
    PRIMARY KEY(component_id),
@@ -81,6 +80,7 @@ CREATE TABLE repair(
    repair_id SERIAL,
    filing_date TIMESTAMP NOT NULL,
    end_date TIMESTAMP,
+   total NUMERIC(15,2)  ,
    laptop_id INTEGER NOT NULL,
    technician_id INTEGER NOT NULL,
    repair_status_id INTEGER NOT NULL,
@@ -119,6 +119,14 @@ CREATE TABLE retour(
    FOREIGN KEY(repair_id) REFERENCES repair(repair_id)
 );
 
+CREATE TABLE composant_recommande(
+   id SERIAL,
+   date_recommande DATE NOT NULL,
+   component_id INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
+);
+
 CREATE TABLE laptop_component(
    laptop_id INTEGER,
    component_id INTEGER,
@@ -126,10 +134,4 @@ CREATE TABLE laptop_component(
    PRIMARY KEY(laptop_id, component_id),
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
    FOREIGN KEY(component_id) REFERENCES component(component_id)
-);
-CREATE TABLE  composant_recommande(
-    id SERIAL,
-    component_id INTEGER,
-    date_recommande date,
-    FOREIGN KEY (component_id) REFERENCES  component(component_id)
 );
