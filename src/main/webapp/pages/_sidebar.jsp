@@ -64,7 +64,7 @@
             </a>
             <div class="collapse" id="repair">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">Insertion</a></li>
+                    <li class="nav-item"><a class="nav-link" href=".//repaireServlet?mode=insert">Insertion</a></li>
                     <li class="nav-item"><a class="nav-link" href="./repaireServlet">List</a></li>
                 </ul>
             </div>

@@ -32,7 +32,7 @@
                         <select class="form-control" id="customer" name="laptopId">
                             <%
                                 for (Laptop laptop : laptopList) { %>
-                            <option value="<%=laptop.getLaptop_id()%>" ><%=laptop.getCustomer().getCustomers_id()%></option>
+                            <option value="<%=laptop.getLaptop_id()%>" ><%=laptop.getCustomer().getName()%></option>
                             <%
                                 }
                             %>
