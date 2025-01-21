@@ -3,6 +3,7 @@ package org.example.techcare.dao;
 import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.repair.RepairStatus;
+import org.example.techcare.model.repair.RepairType;
 import org.example.techcare.model.technician.Technician;
 import org.example.techcare.model.utils.ConnectionBdd;
 
@@ -15,13 +16,14 @@ import java.util.List;
 public class RepairDAO {
     // Create
     public void createRepair(Repair repair) {
-        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id) VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
             statement.setInt(3, repair.getLaptop().getLaptop_id()); // Using laptop_id from the Laptop object
             statement.setInt(4, repair.getTechnician().getTechnician_id()); // Using technician_id from the Technician object
             statement.setInt(5, repair.getRepairStatus().getRepair_status_id()); // Using repair_status_id from the RepairStatus object
+            statement.setInt(6, repair.getRepairType().getRepair_type_id()); // Using repair_type_id from the RepairType object
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating repair: " + e.getMessage());
@@ -39,10 +41,12 @@ public class RepairDAO {
                     LaptopDAO laptopDAO = new LaptopDAO();
                     TechnicianDAO technicianDAO = new TechnicianDAO();
                     RepairStatusDAO repairStatusDAO = new RepairStatusDAO();
+                    RepairTypeDAO repairTypeDAO = new RepairTypeDAO();
 
                     Laptop laptop = laptopDAO.getLaptopById(resultSet.getInt("laptop_id"));
                     Technician technician = technicianDAO.getTechnicianById(resultSet.getInt("technician_id"));
                     RepairStatus repairStatus = repairStatusDAO.getRepairStatusById(resultSet.getInt("repair_status_id"));
+                    RepairType repairType = repairTypeDAO.getRepairTypeById(resultSet.getInt("repair_type_id"));
 
                     return new Repair(
                             resultSet.getInt("repair_id"),
@@ -51,7 +55,8 @@ public class RepairDAO {
                             laptop,
                             technician,
                             repairStatus,
-                            resultSet.getBigDecimal("total")
+                            resultSet.getBigDecimal("total"),
+                            repairType
                     );
                 }
             }
@@ -85,7 +90,8 @@ public class RepairDAO {
                         laptop,
                         technician,
                         repairStatus,
-                        resultSet.getBigDecimal("total")
+                        resultSet.getBigDecimal("total"),
+                        new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id"))
                 ));
             }
         } catch (SQLException e) {
@@ -96,14 +102,15 @@ public class RepairDAO {
 
     // Update
     public void updateRepair(Repair repair) {
-        String sql = "UPDATE repair SET filing_date = ?, end_date = ?, laptop_id = ?, technician_id = ?, repair_status_id = ? WHERE repair_id = ?";
+        String sql = "UPDATE repair SET filing_date = ?, end_date = ?, laptop_id = ?, technician_id = ?, repair_status_id = ? , repair_tpye_id = ? WHERE repair_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
             statement.setInt(3, repair.getLaptop().getLaptop_id()); // Using laptop_id from the Laptop object
             statement.setInt(4, repair.getTechnician().getTechnician_id()); // Using technician_id from the Technician object
             statement.setInt(5, repair.getRepairStatus().getRepair_status_id()); // Using repair_status_id from the RepairStatus object
-            statement.setInt(6, repair.getRepair_id());
+            statement.setInt(6, repair.getRepairType().getRepair_type_id()); // Using repair_type_id from the RepairType object
+            statement.setInt(7, repair.getRepair_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while updating repair: " + e.getMessage());
@@ -145,7 +152,8 @@ public class RepairDAO {
                             new LaptopDAO().getLaptopById(resultSet.getInt("laptop_id")),
                             new TechnicianDAO().getTechnicianById(resultSet.getInt("technician_id")),
                             new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id")),
-                            resultSet.getBigDecimal("total")
+                            resultSet.getBigDecimal("total"),
+                            new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id"))
                     );
                     repairs.add(repair);
                 }
