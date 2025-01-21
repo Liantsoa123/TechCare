@@ -3,8 +3,10 @@
 <%@ page import="org.example.techcare.model.repair.RepairStatus" %>
 <%@ page import="org.example.techcare.model.repair.Repair" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="org.example.techcare.model.repair.RepairType" %>
 <%
     List<TypeComponent> listTypeComponent = (List<TypeComponent>) request.getAttribute("TypeComponent");
+    List<RepairType> repairTypes = (List<RepairType>) request.getAttribute("repairTypeList");
     List<RepairStatus> repairStatuses =  new ArrayList<>();
     if ((List<RepairStatus>) request.getAttribute("repairstatus") != null){
         repairStatuses = (List<RepairStatus>) request.getAttribute("repairstatus");
@@ -42,6 +44,18 @@
                             %>
                         </select>
                     </div>
+
+                    <div class="form-group">
+                        <label for="repairTypeId">Type Repair</label>
+                        <select class="form-control" id="repairTypeId" name="repairTypeId">
+                            <%
+                                for (RepairType repairType : repairTypes) { %>
+                            <option value="<%=repairType.getRepair_type_id()%>"><%=repairType.getName()%></option>
+                            <% }
+                            %>
+                        </select>
+                    </div>
+
                     <button type="submit" class="btn btn-primary mr-2">Search</button>
 
                 </form>
