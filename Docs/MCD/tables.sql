@@ -51,6 +51,12 @@ CREATE TABLE laptop_type(
    PRIMARY KEY(laptop_type_id)
 );
 
+CREATE TABLE repair_type(
+   repair_type_id SERIAL,
+   name VARCHAR(250)  NOT NULL,
+   PRIMARY KEY(repair_type_id)
+);
+
 CREATE TABLE laptop(
    laptop_id SERIAL,
    model VARCHAR(250)  NOT NULL,
@@ -81,11 +87,12 @@ CREATE TABLE repair(
    filing_date TIMESTAMP NOT NULL,
    end_date TIMESTAMP,
    total NUMERIC(15,2)  ,
+   repair_type_id INTEGER NOT NULL,
    laptop_id INTEGER NOT NULL,
    technician_id INTEGER NOT NULL,
    repair_status_id INTEGER NOT NULL,
    PRIMARY KEY(repair_id),
-   UNIQUE(laptop_id),
+   FOREIGN KEY(repair_type_id) REFERENCES repair_type(repair_type_id),
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
    FOREIGN KEY(technician_id) REFERENCES technician(technician_id),
    FOREIGN KEY(repair_status_id) REFERENCES repair_status(repair_status_id)
