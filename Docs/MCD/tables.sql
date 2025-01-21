@@ -84,6 +84,7 @@ CREATE TABLE repair(
    laptop_id INTEGER NOT NULL,
    technician_id INTEGER NOT NULL,
    repair_status_id INTEGER NOT NULL,
+    total NUMERIC(18,2),
    PRIMARY KEY(repair_id),
    UNIQUE(laptop_id),
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),

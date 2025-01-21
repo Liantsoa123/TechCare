@@ -50,7 +50,8 @@ public class RepairDAO {
                             resultSet.getTimestamp("end_date"),
                             laptop,
                             technician,
-                            repairStatus
+                            repairStatus,
+                            resultSet.getBigDecimal("total")
                     );
                 }
             }
@@ -83,7 +84,8 @@ public class RepairDAO {
                         resultSet.getTimestamp("end_date"),
                         laptop,
                         technician,
-                        repairStatus
+                        repairStatus,
+                        resultSet.getBigDecimal("total")
                 ));
             }
         } catch (SQLException e) {
@@ -142,7 +144,8 @@ public class RepairDAO {
                             resultSet.getTimestamp("end_date"),
                             new LaptopDAO().getLaptopById(resultSet.getInt("laptop_id")),
                             new TechnicianDAO().getTechnicianById(resultSet.getInt("technician_id")),
-                            new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id"))
+                            new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id")),
+                            resultSet.getBigDecimal("total")
                     );
                     repairs.add(repair);
                 }
