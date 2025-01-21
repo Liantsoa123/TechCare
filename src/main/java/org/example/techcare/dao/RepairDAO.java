@@ -136,7 +136,7 @@ public class RepairDAO {
             FROM repair r
             INNER JOIN repair_details rd ON r.repair_id = rd.repair_id
             INNER JOIN component c ON rd.component_id = c.component_id
-            WHERE c.type_component_id = ? and c.repair_type_id = ?
+            WHERE c.type_component_id = ? and r.repair_type_id = ?
         """;
 
         List<Repair> repairs = new ArrayList<>();
