@@ -15,11 +15,12 @@ public class Repair {
     private RepairStatus repairStatus;
     private BigDecimal total;
     private  RepairType repairType;
+    private String description ;
 
     public Repair() {
     }
 
-    public Repair(int repair_id, Timestamp filing_date, Timestamp end_date, Laptop laptop, Technician technician, RepairStatus repairStatus, BigDecimal total, RepairType repairType) {
+    public Repair(int repair_id, Timestamp filing_date, Timestamp end_date, Laptop laptop, Technician technician, RepairStatus repairStatus, BigDecimal total, RepairType repairType , String description) {
         this.repair_id = repair_id;
         this.filing_date = filing_date;
         this.end_date = end_date;
@@ -28,6 +29,7 @@ public class Repair {
         this.repairStatus = repairStatus;
         this.total = total;
         this.repairType = repairType;
+        this.description = description ;
     }
 
     public int getRepair_id() {
@@ -90,5 +92,13 @@ public class Repair {
 
     public void setRepairType(RepairType repairType) {
         this.repairType = repairType;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
