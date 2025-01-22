@@ -62,7 +62,8 @@ public class RepairServlet extends HttpServlet {
             Timestamp dateRepair = new Timestamp(System.currentTimeMillis());
             BigDecimal total = req.getParameter("total") != null ? new BigDecimal(req.getParameter("total")) : new BigDecimal(0);
             RepairStatus repairStatus = new RepairStatusDAO().getRepairStatusById(1);
-            Repair repair = new Repair(0, dateRepair, null, laptop, technician, repairStatus, total, repairType);
+            String desc = req.getParameter("description");
+            Repair repair = new Repair(0, dateRepair, null, laptop, technician, repairStatus, total, repairType, desc);
             new RepairDAO().createRepair(repair);
             resp.sendRedirect("repaireServlet");
             return;
