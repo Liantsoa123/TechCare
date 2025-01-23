@@ -43,8 +43,15 @@
                             <input type="date" class="form-control" id="dateFin"
                                 placeholder="Date fin" name="dateFin">
                         </div>
+                        <div class="form-group">
+                            <label for="customer">Customer </label>
+                            <select class="form-control" id="customer" name="laptopId">
+                                <option value="1">Homme</option>
+                                 <option value="2">Femme</option>
+                            </select>
+                        </div>
 
-                        <button type="submit" class="btn btn-primary mr-2">Search</button>
+                    <button type="submit" class="btn btn-primary mr-2">Search</button>
                     </p>
                 </form>
             </div>

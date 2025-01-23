@@ -30,10 +30,11 @@ public class CommissionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Date dateDebut = java.sql.Date.valueOf(req.getParameter("dateDebut"));
         Date dateFin = java.sql.Date.valueOf(req.getParameter("dateFin"));
+        int id_sexe = Integer.parseInt(req.getParameter("sexe"));
 
         System.out.println("huhu commssion ");
         List<CommissionPeriod> commissionPeriods = new ArrayList<>();
-        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDateFin(dateDebut , dateFin);
+        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDateFin(dateDebut , dateFin ,id_sexe );
 
 
         req.setAttribute("commissions" , commissionPeriods);
