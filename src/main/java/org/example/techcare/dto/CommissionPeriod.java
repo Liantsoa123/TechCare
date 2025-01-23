@@ -64,9 +64,10 @@ public class CommissionPeriod {
 
 public static List<CommissionPeriod> getCommissionByDateDebutAndDateFin( Date dateDebut, Date dateFin, int id_sexe) {
     List<CommissionPeriod> commissionPeriods = new ArrayList<>();
-    String sql = "SELECT technician_id, (SUM(total) * 5 / 100 ) AS total_amount FROM repair " +
-            "WHERE  DATE(filing_date) >= ? AND DATE(filing_date) <= ? AND id_sexe = ? " +
-            "GROUP BY technician_id";
+    String sql = "SELECT repair.technician_id as technician_id , (SUM(total) * 5 / 100 ) AS total_amount FROM repair\n" +
+            "            join technician t on  repair.technician_id = t.technician_id\n" +
+            "            WHERE  DATE(filing_date) >= ? AND DATE(filing_date) <= ? AND t.id_sexe = ? \n" +
+            "            GROUP BY repair.technician_id";
 
     try (Connection connection = new ConnectionBdd().getConnection();
          PreparedStatement statement = connection.prepareStatement(sql)) {
