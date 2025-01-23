@@ -79,6 +79,12 @@
                                placeholder="Total" name="total">
                     </div>
 
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="text" class="form-control" id="description"
+                               placeholder="Descritpion" name="total">
+                    </div>
+
                     <button type="submit" class="btn btn-primary mr-2">Insert</button>
 
                 </form>

@@ -63,7 +63,7 @@ public class RepairServlet extends HttpServlet {
             BigDecimal total = req.getParameter("total") != null ? new BigDecimal(req.getParameter("total")) : new BigDecimal(0);
             RepairStatus repairStatus = new RepairStatusDAO().getRepairStatusById(1);
             String desc = req.getParameter("description");
-            Repair repair = new Repair(0, dateRepair, null, laptop, technician, repairStatus, total, repairType, desc);
+            Repair repair = new Repair(0, dateRepair,null, laptop, technician, repairStatus, total, repairType, desc);
             new RepairDAO().createRepair(repair);
             resp.sendRedirect("repaireServlet");
             return;
@@ -83,7 +83,6 @@ public class RepairServlet extends HttpServlet {
 
             RequestDispatcher dispastcher = req.getRequestDispatcher("index.jsp");
             dispastcher.forward(req, resp);
-
         }
     }
 
