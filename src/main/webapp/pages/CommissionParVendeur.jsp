@@ -57,6 +57,12 @@
                             </select>
                         </div>
 
+                    <div class="form-group">
+                        <label for="montant">Montant</label>
+                        <input type="number" class="form-control" id="montant"
+                               placeholder="Montant" name="montant">
+                    </div>
+
                     <button type="submit" class="btn btn-primary mr-2">Search</button>
                     </p>
                 </form>

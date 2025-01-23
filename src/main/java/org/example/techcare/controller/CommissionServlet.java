@@ -31,10 +31,11 @@ public class CommissionServlet extends HttpServlet {
         Date dateDebut = java.sql.Date.valueOf(req.getParameter("dateDebut"));
         Date dateFin = java.sql.Date.valueOf(req.getParameter("dateFin"));
         int id_sexe = Integer.parseInt(req.getParameter("id_sexe"));
+        String montatnStr = req.getParameter("montant");
 
         System.out.println("huhu commssion ");
         List<CommissionPeriod> commissionPeriods = new ArrayList<>();
-        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDateFin(dateDebut , dateFin ,id_sexe );
+        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDateFin(dateDebut , dateFin ,id_sexe , montatnStr);
 
         if ( id_sexe == 1 ){
             req.setAttribute("sexe" , "Homme");
