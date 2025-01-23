@@ -16,7 +16,7 @@ import java.util.List;
 public class RepairDAO {
     // Create
     public void createRepair(Repair repair) {
-        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id , total) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id , total , description) VALUES (?,?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
@@ -25,6 +25,7 @@ public class RepairDAO {
             statement.setInt(5, repair.getRepairStatus().getRepair_status_id()); // Using repair_status_id from the RepairStatus object
             statement.setInt(6, repair.getRepairType().getRepair_type_id()); // Using repair_type_id from the RepairType object
             statement.setBigDecimal(7, repair.getTotal());
+            statement.setString(8,repair.getDescription());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating repair: " + e.getMessage());
@@ -57,7 +58,8 @@ public class RepairDAO {
                             technician,
                             repairStatus,
                             resultSet.getBigDecimal("total"),
-                            repairType
+                            repairType,
+                            resultSet.getString("description")
                     );
                 }
             }
@@ -92,7 +94,8 @@ public class RepairDAO {
                         technician,
                         repairStatus,
                         resultSet.getBigDecimal("total"),
-                        new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id"))
+                        new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id")),
+                        resultSet.getString("description")
                 ));
             }
         } catch (SQLException e) {
@@ -103,7 +106,7 @@ public class RepairDAO {
 
     // Update
     public void updateRepair(Repair repair) {
-        String sql = "UPDATE repair SET filing_date = ?, end_date = ?, laptop_id = ?, technician_id = ?, repair_status_id = ? , repair_tpye_id = ? WHERE repair_id = ?";
+        String sql = "UPDATE repair SET filing_date = ?, end_date = ?, laptop_id = ?, technician_id = ?, repair_status_id = ? , repair_tpye_id = ? , description = ? WHERE repair_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
@@ -111,7 +114,8 @@ public class RepairDAO {
             statement.setInt(4, repair.getTechnician().getTechnician_id()); // Using technician_id from the Technician object
             statement.setInt(5, repair.getRepairStatus().getRepair_status_id()); // Using repair_status_id from the RepairStatus object
             statement.setInt(6, repair.getRepairType().getRepair_type_id()); // Using repair_type_id from the RepairType object
-            statement.setInt(7, repair.getRepair_id());
+            statement.setString(7 , repair.getDescription());
+            statement.setInt(8, repair.getRepair_id());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while updating repair: " + e.getMessage());
@@ -132,7 +136,7 @@ public class RepairDAO {
     // GET REPAIRS BY TYPE COMPONENT ID
     public List<Repair> getRepairsByTypeComponentIdAndTypeRepairId(int idTypeComponent , int repairTypeId) {
         String sql = """
-            SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id, r.total, r.repair_type_id
+            SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id, r.total, r.repair_type_id, r.description
             FROM repair r
             INNER JOIN repair_details rd ON r.repair_id = rd.repair_id
             INNER JOIN component c ON rd.component_id = c.component_id
@@ -155,7 +159,8 @@ public class RepairDAO {
                             new TechnicianDAO().getTechnicianById(resultSet.getInt("technician_id")),
                             new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id")),
                             resultSet.getBigDecimal("total"),
-                            new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id"))
+                            new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id")),
+                            resultSet.getString("description")
                     );
                     repairs.add(repair);
                 }
