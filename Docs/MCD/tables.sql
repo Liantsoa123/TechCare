@@ -30,7 +30,9 @@ CREATE TABLE technician(
    technician_id SERIAL,
    name VARCHAR(250)  NOT NULL,
    email VARCHAR(250)  NOT NULL,
-   PRIMARY KEY(technician_id)
+   PRIMARY KEY(technician_id),
+    id_sexe INT ,
+    FOREIGN KEY(id_sexe) REFERENCES sexe(id_sexe)
 );
 
 CREATE TABLE brand_component(
@@ -144,3 +146,7 @@ CREATE TABLE laptop_component(
    FOREIGN KEY(laptop_id) REFERENCES laptop(laptop_id),
    FOREIGN KEY(component_id) REFERENCES component(component_id)
 );
+CREATE TABLE sexe(
+    id SERIAL,
+    name VARCHAR(100)
+)

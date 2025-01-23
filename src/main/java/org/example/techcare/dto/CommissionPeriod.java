@@ -62,4 +62,32 @@ public class CommissionPeriod {
         return commissionPeriods;
     }
 
+public static List<CommissionPeriod> getCommissionByDateDebutAndDateFin( Date dateDebut, Date dateFin, int id_sexe) {
+    List<CommissionPeriod> commissionPeriods = new ArrayList<>();
+    String sql = "SELECT technician_id, (SUM(total) * 5 / 100 ) AS total_amount FROM repair " +
+            "WHERE  DATE(filing_date) >= ? AND DATE(filing_date) <= ? AND id_sexe = ? " +
+            "GROUP BY technician_id";
+
+    try (Connection connection = new ConnectionBdd().getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+        statement.setDate(1, dateDebut);
+        statement.setDate(2, dateFin);
+        statement.setInt(3,id_sexe);
+
+        try (ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                Technician  technician = new TechnicianDAO().getTechnicianById( resultSet.getInt("technician_id") );
+                BigDecimal totalAmount = resultSet.getBigDecimal("total_amount");
+                CommissionPeriod commissionPeriod = new CommissionPeriod(technician, totalAmount);
+                commissionPeriods.add(commissionPeriod);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error while retrieving commission: " + e.getMessage());
+    }
+
+    return commissionPeriods;
 }
+
+}
+
