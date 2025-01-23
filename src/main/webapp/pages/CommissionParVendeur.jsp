@@ -8,6 +8,12 @@
     if ((List<CommissionPeriod>) request.getAttribute("commissions") != null) {
         commissionPeriods = (List<CommissionPeriod>) request.getAttribute("commissions");
     }
+
+    String sexe = "";
+    if ( request.getAttribute("sexe") !=null ){
+        sexe = request.getAttribute("sexe").toString();
+    }
+
 %>
 
 <%--Page Header--%>
@@ -44,8 +50,8 @@
                                 placeholder="Date fin" name="dateFin">
                         </div>
                         <div class="form-group">
-                            <label for="customer">Customer </label>
-                            <select class="form-control" id="customer" name="laptopId">
+                            <label for="customer">Sexe </label>
+                            <select class="form-control" id="customer" name="id_sexe">
                                 <option value="1">Homme</option>
                                  <option value="2">Femme</option>
                             </select>
@@ -63,7 +69,7 @@
 <div class="col-lg-15 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Liste des Vendeurs</h4>
+            <h4 class="card-title">Liste des Vendeurs <%=sexe%> </h4>
             </p>
             <div class="table-responsive">
                 <table class="table">
