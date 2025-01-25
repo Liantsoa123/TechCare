@@ -3,12 +3,12 @@ CREATE
 OR REPLACE FUNCTION calculate_commission()
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Check if the total is greater than or equal to 200000
+
     IF
 NEW.total >= 200000 THEN
-        NEW.commission := NEW.total * 0.05; -- Set commission to 5% of total
+        NEW.commission := NEW.total * 0.05;
 ELSE
-        NEW.commission := 0; -- Otherwise, set commission to 0
+        NEW.commission := 0;
 END IF;
 RETURN NEW;
 END;
