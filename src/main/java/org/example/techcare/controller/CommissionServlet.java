@@ -28,24 +28,34 @@ public class CommissionServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Date dateDebut = java.sql.Date.valueOf(req.getParameter("dateDebut"));
-        Date dateFin = java.sql.Date.valueOf(req.getParameter("dateFin"));
-
-        System.out.println("huhu commssion ");
-        List<CommissionPeriod> commissionPeriods = new ArrayList<>();
-        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDateFin(dateDebut , dateFin);
-
-
-        req.setAttribute("commissions" , commissionPeriods);
-
-
-        System.out.println("commission" + commissionPeriods.size());
-        for ( CommissionPeriod commissionPeriod : commissionPeriods ){
-            System.out.println("comm = " + commissionPeriod.getTechnician().getName());
+        Date dateDebut = null;
+        Date dateFin = null;
+        int id_sexe = -1;
+        // Pour dateDebut
+        String paramDateDebut = req.getParameter("dateDebut");
+        if (paramDateDebut != null && !paramDateDebut.trim().isEmpty()) {
+            dateDebut = java.sql.Date.valueOf(paramDateDebut.trim());
+            req.setAttribute("dateDebut", paramDateDebut);
         }
 
+        // Pour dateFin
+        String paramDateFin = req.getParameter("dateFin");
+        if (paramDateFin != null && !paramDateFin.trim().isEmpty()) {
+            dateFin = java.sql.Date.valueOf(paramDateFin.trim());
+            req.setAttribute("dateFin", paramDateFin);
+        }
+        if (req.getParameter("id_sexe") != null) {
+            id_sexe = Integer.parseInt(req.getParameter("id_sexe"));
+            req.setAttribute("id_sexe", id_sexe);
+        }
+        List<CommissionPeriod> commissionPeriods = new ArrayList<>();
+        commissionPeriods = CommissionPeriod.getCommissionByDateDebutAndDabeFinAndIdSexe(dateDebut, dateFin, id_sexe);
+        req.setAttribute("commissions", commissionPeriods);
+        System.out.println("commission" + commissionPeriods.size());
+        for (CommissionPeriod commissionPeriod : commissionPeriods) {
+            System.out.println("comm = " + commissionPeriod.getTechnician().getName());
+        }
         req.setAttribute("page", "CommissionParVendeur");
-
         RequestDispatcher dispastcher = req.getRequestDispatcher("index.jsp");
         dispastcher.forward(req, resp);
 

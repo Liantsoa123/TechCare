@@ -6,13 +6,6 @@ CREATE TABLE _user_(
    UNIQUE(email)
 );
 
-CREATE TABLE customers(
-   customers_id SERIAL,
-   name VARCHAR(250)  NOT NULL,
-   email VARCHAR(250)  NOT NULL,
-   PRIMARY KEY(customers_id)
-);
-
 CREATE TABLE type_component(
    type_component_id SERIAL,
    name VARCHAR(250)  NOT NULL,
@@ -24,13 +17,6 @@ CREATE TABLE repair_status(
    repair_status_id SERIAL,
    name VARCHAR(250)  NOT NULL,
    PRIMARY KEY(repair_status_id)
-);
-
-CREATE TABLE technician(
-   technician_id SERIAL,
-   name VARCHAR(250)  NOT NULL,
-   email VARCHAR(250)  NOT NULL,
-   PRIMARY KEY(technician_id)
 );
 
 CREATE TABLE brand_component(
@@ -55,6 +41,21 @@ CREATE TABLE repair_type(
    repair_type_id SERIAL,
    name VARCHAR(250)  NOT NULL,
    PRIMARY KEY(repair_type_id)
+);
+
+CREATE TABLE sexe(
+   sexe_id SERIAL,
+   name VARCHAR(50)  NOT NULL,
+   PRIMARY KEY(sexe_id)
+);
+
+CREATE TABLE customers(
+   customers_id SERIAL,
+   name VARCHAR(250)  NOT NULL,
+   email VARCHAR(250)  NOT NULL,
+   sexe_id INTEGER NOT NULL,
+   PRIMARY KEY(customers_id),
+   FOREIGN KEY(sexe_id) REFERENCES sexe(sexe_id)
 );
 
 CREATE TABLE laptop(
@@ -82,12 +83,40 @@ CREATE TABLE component(
    FOREIGN KEY(type_component_id) REFERENCES type_component(type_component_id)
 );
 
+CREATE TABLE technician(
+   technician_id SERIAL,
+   name VARCHAR(250)  NOT NULL,
+   email VARCHAR(250)  NOT NULL,
+   sexe_id INTEGER NOT NULL,
+   PRIMARY KEY(technician_id),
+   FOREIGN KEY(sexe_id) REFERENCES sexe(sexe_id)
+);
+
+CREATE TABLE stock_movement(
+   stock_movement_id SERIAL,
+   quantity NUMERIC(15,2)   NOT NULL,
+   is_enter BOOLEAN NOT NULL,
+   date_movement TIMESTAMP NOT NULL,
+   component_id INTEGER NOT NULL,
+   PRIMARY KEY(stock_movement_id),
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
+);
+
+CREATE TABLE composant_recommande(
+   id SERIAL,
+   date_recommande DATE NOT NULL,
+   component_id INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
+);
+
 CREATE TABLE repair(
    repair_id SERIAL,
    filing_date TIMESTAMP NOT NULL,
    end_date TIMESTAMP,
    total NUMERIC(15,2)  ,
    description VARCHAR(250) ,
+   commission NUMERIC(15,2)   Default 0 ,
    repair_type_id INTEGER NOT NULL,
    laptop_id INTEGER NOT NULL,
    technician_id INTEGER NOT NULL,
@@ -110,30 +139,12 @@ CREATE TABLE repair_details(
    FOREIGN KEY(repair_id) REFERENCES repair(repair_id)
 );
 
-CREATE TABLE stock_movement(
-   stock_movement_id SERIAL,
-   quantity NUMERIC(15,2)   NOT NULL,
-   is_enter BOOLEAN NOT NULL,
-   date_movement TIMESTAMP NOT NULL,
-   component_id INTEGER NOT NULL,
-   PRIMARY KEY(stock_movement_id),
-   FOREIGN KEY(component_id) REFERENCES component(component_id)
-);
-
 CREATE TABLE retour(
    retour_id SERIAL,
    retour_date TIMESTAMP NOT NULL,
    repair_id INTEGER NOT NULL,
    PRIMARY KEY(retour_id),
    FOREIGN KEY(repair_id) REFERENCES repair(repair_id)
-);
-
-CREATE TABLE composant_recommande(
-   id SERIAL,
-   date_recommande DATE NOT NULL,
-   component_id INTEGER NOT NULL,
-   PRIMARY KEY(id),
-   FOREIGN KEY(component_id) REFERENCES component(component_id)
 );
 
 CREATE TABLE laptop_component(
