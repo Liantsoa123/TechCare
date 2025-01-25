@@ -54,7 +54,7 @@
                         <label for="dateFin">Date fin</label>
                         <input type="date" class="form-control" id="dateFin"
                                placeholder="Date fin" name="dateFin"
-                               value="<%= request.getAttribute("dateFin") != null ? request.getAttribute("dateFin") : "" %>">
+                               value="<%= request.getAttribute("dateFin") != null ? request.getAttribute("dateFin") : ""%>">
                     </div>
                     <div class="form-group">
                         <label for="customer">Sexe </label>
@@ -95,6 +95,7 @@
                     <tbody>
 
                     <%
+                        Double totalCommission = 0.0;
                         int id = 1;
                         for (CommissionPeriod commissionPeriod : commissionPeriods) {
                     %>
@@ -107,14 +108,20 @@
                         </td>
                         <td><%=commissionPeriod.getTotal()%>
                         </td>
-                        <td><%=commissionPeriod.getTotalCommission()%>
+                        <td><%=commissionPeriod.getTotalCommission().doubleValue()%>
                         </td>
                     </tr>
                     <%
                             id++;
+                            totalCommission = totalCommission + commissionPeriod.getTotalCommission().doubleValue();
                         }
                     %>
-
+                    <tr>
+                        <td colspan="3" ></td>
+                        <td><strong>TOTAL</strong>
+                        </td>
+                        <td><%=totalCommission%>
+                        </td>
                     </tbody>
                 </table>
             </div>
