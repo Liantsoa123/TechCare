@@ -63,15 +63,22 @@ public class RepairServlet extends HttpServlet {
             BigDecimal total = req.getParameter("total") != null ? new BigDecimal(req.getParameter("total")) : new BigDecimal(0);
             RepairStatus repairStatus = new RepairStatusDAO().getRepairStatusById(1);
             String desc = req.getParameter("description");
-            Repair repair = new Repair(0, dateRepair,null, laptop, technician, repairStatus, total, repairType, desc);
+            Repair repair = new Repair(0, dateRepair, null, laptop, technician, repairStatus, total, repairType, desc);
             new RepairDAO().createRepair(repair);
             resp.sendRedirect("repaireServlet");
             return;
         }
 //        Search Repair by TypeComponent ID
         else {
-            int idTypeComponent = Integer.parseInt(req.getParameter("typComponentId"));
-            int idRepairType = Integer.parseInt(req.getParameter("repairTypeId"));
+            Integer idTypeComponent = null;
+            Integer idRepairType = null;
+            if (req.getParameter("typComponentId") != null) {
+                idTypeComponent = Integer.parseInt(req.getParameter("typComponentId"));
+            }
+            if (req.getParameter("repairTypeId") != null) {
+                idRepairType = Integer.parseInt(req.getParameter("repairTypeId"));
+            }
+
             List<Repair> repairs = new RepairDAO().getRepairsByTypeComponentIdAndTypeRepairId(idTypeComponent, idRepairType);
             req.setAttribute("repairs", repairs);
             List<TypeComponent> listTypeComponents = new TypeComponentDAO().getAllTypeComponents();

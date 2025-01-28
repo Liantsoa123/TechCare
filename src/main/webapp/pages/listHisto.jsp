@@ -25,7 +25,7 @@
             <div class="card-body">
                 <h4 class="card-title">Search</h4>
                 <form class="forms-sample" action="./HistoPrixServlet" method="post">
-                    <input type="hidden" name="mode" value="search" >
+                    <input type="hidden" name="mode" value="search">
                     <div class="form-group">
                         <label for="composant">Composant</label>
                         <select class="form-control" id="composant" name="componentId">
@@ -61,30 +61,24 @@
                         <th>Type Component</th>
                         <th>Prix</th>
                         <th>Date</th>
-
                     </tr>
                     </thead>
                     <tbody>
+                    <%
+                        int id = 1;
+                        for (HistoriquePrix historiquePrix : historiquePrixList) {
+                    %>
                     <tr>
-                        <%
-                            int id = 1;
-                            for (HistoriquePrix historiquePrix : historiquePrixList) {
-                        %>
-                        <td><%=id%>
-                        </td>
-                        <td><%=historiquePrix.getComponent().getModel()%>
-                        </td>
-                        <td><%=historiquePrix.getComponent().getTypeComponent().getName()%>
-                        </td>
-                        <td><%=historiquePrix.getPrix()%>
-                        </td>
-                        <td><%=historiquePrix.getDateHisto()%>
-                        </td>
-                        <%
-                                id++;
-                            }
-                        %>
+                        <td><%=id%></td>
+                        <td><%=historiquePrix.getComponent().getModel()%></td>
+                        <td><%=historiquePrix.getComponent().getTypeComponent().getName()%></td>
+                        <td><%=historiquePrix.getPrix()%></td>
+                        <td><%=historiquePrix.getDateHisto()%></td>
                     </tr>
+                    <%
+                            id++;
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>
