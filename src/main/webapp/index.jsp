@@ -6,7 +6,8 @@
     if (pages == null){
         pages = "home";
     }
-    List<String> validPages = Arrays.asList("listRepair", "home", "insertComponent", "listComponent","insertRetour","listRetour","listComposantRecommande","insertComposantRecommande", "listAchatClient", "CommissionParVendeur", "insertRepair");
+    List<String> validPages = Arrays.asList("listRepair", "home", "insertComponent", "listComponent","insertRetour","listRetour","listComposantRecommande","insertComposantRecommande", "listAchatClient", "CommissionParVendeur", "insertRepair",
+            "insertHisto", "listHisto");
 %>
 <!DOCTYPE html>
 <html lang="en">

@@ -134,7 +134,7 @@ public class RepairDAO {
     }
 
     // GET REPAIRS BY TYPE COMPONENT ID
-    public List<Repair> getRepairsByTypeComponentIdAndTypeRepairId(int idTypeComponent , int repairTypeId) {
+   /* public List<Repair> getRepairsByTypeComponentIdAndTypeRepairId(int idTypeComponent , int repairTypeId) {
         String sql = """
             SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id, r.total, r.repair_type_id, r.description
             FROM repair r
@@ -170,6 +170,59 @@ public class RepairDAO {
         }
 
         return repairs;
+    }*/
+
+    public static List<Repair> getRepairsByTypeComponentIdAndTypeRepairId(Integer idTypeComponent, Integer repairTypeId) {
+        List<Repair> repairs = new ArrayList<>();
+        String sql = """
+        SELECT DISTINCT r.repair_id, r.filing_date, r.end_date, r.laptop_id, r.technician_id, r.repair_status_id, r.total, r.repair_type_id, r.description
+        FROM repair r
+        INNER JOIN repair_details rd ON r.repair_id = rd.repair_id
+        INNER JOIN component c ON rd.component_id = c.component_id
+        WHERE 1 = 1
+    """;
+
+        // Ajout dynamique des conditions
+        if (idTypeComponent != null) {
+            sql += " AND c.type_component_id = ?";
+        }
+        if (repairTypeId != null) {
+            sql += " AND r.repair_type_id = ?";
+        }
+
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+            int index = 1;
+
+            // Paramètres dynamiques
+            if (idTypeComponent != null) {
+                statement.setInt(index++, idTypeComponent);
+            }
+            if (repairTypeId != null) {
+                statement.setInt(index++, repairTypeId);
+            }
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Repair repair = new Repair(
+                            resultSet.getInt("repair_id"),
+                            resultSet.getTimestamp("filing_date"),
+                            resultSet.getTimestamp("end_date"),
+                            new LaptopDAO().getLaptopById(resultSet.getInt("laptop_id")),
+                            new TechnicianDAO().getTechnicianById(resultSet.getInt("technician_id")),
+                            new RepairStatusDAO().getRepairStatusById(resultSet.getInt("repair_status_id")),
+                            resultSet.getBigDecimal("total"),
+                            new RepairTypeDAO().getRepairTypeById(resultSet.getInt("repair_type_id")),
+                            resultSet.getString("description")
+                    );
+                    repairs.add(repair);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while fetching repairs by TypeComponentId and RepairTypeId: " + e.getMessage());
+        }
+
+        return repairs;
     }
+
 }
 

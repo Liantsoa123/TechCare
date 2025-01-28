@@ -47,8 +47,10 @@
                     <li class="nav-item"><a class="nav-link" href="#">List</a></li>
                     <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet">Insert Recommanded</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet?mode=list">List
-                        Recommanded</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet?mode=list">List Recommanded</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./HistoPrixServlet">Insert Prix</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./HistoPrixServlet?mode=list">List Historique Prix</a></li>
+
                 </ul>
             </div>
         </li>
