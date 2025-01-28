@@ -5,11 +5,11 @@
 %>
 <%--Page Header--%>
 <div class="page-header">
-    <h3 class="page-title"> Insert Component </h3>
+    <h3 class="page-title"> Insert Prix Component </h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Recommanded componnet</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Insertion recommanded Components</li>
+            <li class="breadcrumb-item"><a href="#">Component</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Insertion Prix Component</li>
         </ol>
     </nav>
 </div>

@@ -11,8 +11,8 @@
     <h3 class="page-title"> Historiques Prix</h3>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">prix</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Histo</li>
+            <li class="breadcrumb-item"><a href="#">Component</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Historique</li>
         </ol>
     </nav>
 </div>
@@ -50,7 +50,7 @@
 <div class="col-lg-15 grid-margin stretch-card">
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">Listes Clients</h4>
+            <h4 class="card-title">Listes Historique Prix</h4>
             </p>
             <div class="table-responsive">
                 <table class="table">
