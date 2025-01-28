@@ -110,6 +110,15 @@ CREATE TABLE composant_recommande(
    FOREIGN KEY(component_id) REFERENCES component(component_id)
 );
 
+CREATE TABLE historique_prix(
+   id SERIAL,
+   dateHisto DATE NOT NULL,
+   prix NUMERIC(15,2)   NOT NULL,
+   component_id INTEGER NOT NULL,
+   PRIMARY KEY(id),
+   FOREIGN KEY(component_id) REFERENCES component(component_id)
+);
+
 CREATE TABLE repair(
    repair_id SERIAL,
    filing_date TIMESTAMP NOT NULL,
