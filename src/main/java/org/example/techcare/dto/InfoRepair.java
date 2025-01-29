@@ -87,7 +87,7 @@ public class InfoRepair {
                     Component newC = new ComponentDAO().getComponentById(resultSet.getInt("new_component_id"));
                     Component oldC = new ComponentDAO().getComponentById(resultSet.getInt("old_component_id"));
                     TypeComponent typeComponent = new TypeComponentDAO().getTypeComponentById(resultSet.getInt("type_component_id"));
-                    if (isUpgrade == false) {
+                    /*if (isUpgrade == false) {
                         if (oldC.getCapacity() * resultSet.getInt("old_quantity") >= newC.getCapacity() * resultSet.getInt("new_quantity")) {
                             infoRepairs.add(new InfoRepair(repair, laptop, newC, oldC, typeComponent));
                         }
@@ -95,7 +95,7 @@ public class InfoRepair {
                         if (oldC.getCapacity() * resultSet.getInt("old_quantity") < newC.getCapacity() * resultSet.getInt("new_quantity")) {
                             infoRepairs.add(new InfoRepair(repair, laptop, newC, oldC, typeComponent));
                         }
-                    }
+                    }*/
                 }
             }
         } catch (SQLException e) {
