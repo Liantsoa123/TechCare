@@ -23,12 +23,12 @@
         <div class="card">
             <div class="card-body">
                 <h4 class="card-title">Insertion</h4>
-                <form class="forms-sample">
-                    <input type="hidden" name="model" value="insert">
+                <form class="forms-sample" action="./componentServlet" method="post">
+                    <input type="hidden" name="mode" value="insert">
 
                     <div class="form-group">
-                        <label for="model">Capacity</label>
-                        <input type="number" class="form-control" id="model"
+                        <label for="model">Model</label>
+                        <input type="text" class="form-control" id="model"
                                placeholder="Model" name="model">
                     </div>
 
