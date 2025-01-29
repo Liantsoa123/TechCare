@@ -14,7 +14,7 @@ import java.util.List;
 public class ComponentDAO {
     // Create
     public void createComponent(Component component) {
-        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_laptop_id, model) VALUES ( ?, ?, ?,?,?)";
+        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_component_id, model) VALUES ( ?, ?, ?,?,?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
             statement.setBigDecimal(2, component.getCapacity());
