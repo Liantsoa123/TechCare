@@ -43,8 +43,8 @@
             </a>
             <div class="collapse" id="ui-basic">
                 <ul class="nav flex-column sub-menu">
-                    <li class="nav-item"><a class="nav-link" href="#">Insertion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">List</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./componentServlet">Insertion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="./componentServlet?mode=list">List</a></li>
                     <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet">Insert Recommanded</a>
                     </li>
                     <li class="nav-item"><a class="nav-link" href="./componentRecommandedServlet?mode=list">List Recommanded</a></li>
