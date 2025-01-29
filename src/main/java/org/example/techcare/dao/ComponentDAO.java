@@ -119,12 +119,12 @@ public class ComponentDAO {
     }
 
     public List<Component> getComponentByidTypeComponentandByBrandId(int typeComponentId, int brandId) {
-        String sql = "SELECT * FROM component WHERE 1=1";
+        String sql = "SELECT * FROM component WHERE 1=1 ";
         if (typeComponentId != 0) {
-            sql += " AND type_component_id = " + typeComponentId;
+            sql += " AND type_component_id = ?";
         }
         if (brandId != 0) {
-            sql += " AND brand_component_id = " + brandId;
+            sql += " AND brand_component_id = ?";
         }
         List<Component> componentList = new ArrayList<>();
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
@@ -136,7 +136,7 @@ public class ComponentDAO {
             if (brandId != 0) {
                 statement.setInt(id, brandId);
             }
-            try (ResultSet resultSet = statement.executeQuery(sql)) {
+            try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     // Fetching the type component data from the type_component table
                     TypeComponentDAO typeComponentDAO = new TypeComponentDAO();
