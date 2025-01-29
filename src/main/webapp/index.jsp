@@ -7,7 +7,7 @@
         pages = "home";
     }
     List<String> validPages = Arrays.asList("listRepair", "home", "insertComponent", "listComponent","insertRetour","listRetour","listComposantRecommande","insertComposantRecommande", "listAchatClient", "CommissionParVendeur", "insertRepair",
-            "insertHisto", "listHisto");
+            "insertHisto", "listHisto","listComponent");
 %>
 <!DOCTYPE html>
 <html lang="en">
