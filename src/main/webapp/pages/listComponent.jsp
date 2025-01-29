@@ -7,7 +7,8 @@
     List<TypeComponent> typeComponents = (List<TypeComponent>) request.getAttribute("typeComponents");
     List<BrandComponent> brandComponents = (List<BrandComponent>) request.getAttribute("brandComponents");
     List<Component> components = request.getAttribute("components") != null ? (List<Component>) request.getAttribute("components") : new ArrayList<>();
-
+    int typeComponentId = request.getAttribute("typeComponentId")!= null?(int) request.getAttribute("typeComponentId"):0;
+    int brandComponentId = request.getAttribute("brandComponentId")!= null?(int) request.getAttribute("brandComponentId"):0;
 %>
 <%--Page Header--%>
 <div class="page-header">
@@ -32,9 +33,11 @@
                     <div class="form-group">
                         <label for="typeComponentId">Type Component</label>
                         <select class="form-control" id="typeComponentId" name="typeComponentId">
+                            <option value="0">All</option>
                             <%
                                 for (TypeComponent typeComponent : typeComponents) { %>
-                            <option value="<%=typeComponent.getType_component_id()%>"><%=typeComponent.getName()%>
+                            <option value="<%=typeComponent.getType_component_id()%>"  <% if (typeComponent.getType_component_id() == typeComponentId) { %>
+                                    selected <% } %> ><%=typeComponent.getName()%>
                             </option>
                             <%
                                 }
@@ -45,9 +48,10 @@
                     <div class="form-group">
                         <label for="brandComponentId">Brand</label>
                         <select class="form-control" id="brandComponentId" name="brandComponentId">
+                            <option value="0">All</option>
                             <%
                                 for (BrandComponent brandComponent : brandComponents) { %>
-                            <option value="<%=brandComponent.getBrandComponentId()%>"><%=brandComponent.getName()%>
+                            <option value="<%=brandComponent.getBrandComponentId()%>" <% if ( brandComponent.getBrandComponentId() == brandComponentId ){%> selected <%}%> ><%=brandComponent.getName()%>
                             </option>
                             <%
                                 }
@@ -86,12 +90,18 @@
                         int id = 1;
                         for (Component component : components) { %>
                     <tr>
-                        <td><%=id%></td>
-                        <td><%=component.getModel()%></td>
-                        <td><%=component.getTypeComponent().getName()%></td>
-                        <td><%=component.getBrandComponent().getName()%></td>
-                        <td><%=component.getUnite_price()%></td>
-                        <td><%=component.getCapacity()%></td>
+                        <td><%=id%>
+                        </td>
+                        <td><%=component.getModel()%>
+                        </td>
+                        <td><%=component.getTypeComponent().getName()%>
+                        </td>
+                        <td><%=component.getBrandComponent().getName()%>
+                        </td>
+                        <td><%=component.getUnite_price()%>
+                        </td>
+                        <td><%=component.getCapacity()%>
+                        </td>
                     </tr>
                     <%
                             id++;
