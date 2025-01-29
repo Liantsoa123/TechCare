@@ -14,10 +14,10 @@ import java.util.List;
 public class ComponentDAO {
     // Create
     public void createComponent(Component component) {
-        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_laptop_id, model) VALUES ( ?, ?, ?,?,?)";
+        String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_component_id, model) VALUES ( ?, ?, ?,?,?)";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
-            statement.setInt(2, component.getCapacity());
+            statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(4, component.getBrandComponent().getBrandComponentId());
             statement.setString(5,component.getModel());
@@ -45,7 +45,7 @@ public class ComponentDAO {
                     return new Component(
                             resultSet.getInt("component_id"),
                             resultSet.getBigDecimal("unite_price"),
-                            resultSet.getInt("capacity"),
+                            resultSet.getBigDecimal("capacity"),
                             typeComponent,
                             brandComponent,
                             resultSet.getString("model")
@@ -78,7 +78,7 @@ public class ComponentDAO {
                 componentList.add(new Component(
                         resultSet.getInt("component_id"),
                         resultSet.getBigDecimal("unite_price"),
-                        resultSet.getInt("capacity"),
+                        resultSet.getBigDecimal("capacity"),
                         typeComponent,
                         brandComponent,
                         resultSet.getString("model")
@@ -96,7 +96,7 @@ public class ComponentDAO {
         String sql = "UPDATE component SET  unite_price = ?, capacity = ?, type_component_id = ? , brand_component_id = ?, model = ? WHERE component_id = ?";
         try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
-            statement.setInt(2, component.getCapacity());
+            statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(6, component.getComponent_id());
             statement.setInt(4,component.getBrandComponent().getBrandComponentId() );

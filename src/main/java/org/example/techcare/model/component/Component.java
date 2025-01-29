@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 public class Component {
     private int component_id;
     private BigDecimal unite_price;
-    private int capacity;
+    private BigDecimal capacity;
     private TypeComponent typeComponent;
     private BrandComponent brandComponent;
     private String model ;
@@ -16,7 +16,7 @@ public class Component {
     public Component() {
     }
 
-    public Component(int componenr_id, BigDecimal unite_price, int capacity, TypeComponent typeComponent , BrandComponent brandComponent, String model) {
+    public Component(int componenr_id, BigDecimal unite_price, BigDecimal capacity, TypeComponent typeComponent , BrandComponent brandComponent, String model) {
         this.component_id = componenr_id;
         this.unite_price = unite_price;
         this.capacity = capacity;
@@ -41,11 +41,11 @@ public class Component {
         this.unite_price = unite_price;
     }
 
-    public int getCapacity() {
+    public BigDecimal getCapacity() {
         return capacity;
     }
 
-    public void setCapacity(int capacity) {
+    public void setCapacity(BigDecimal capacity) {
         this.capacity = capacity;
     }
 
