@@ -20,7 +20,7 @@ public class ComponentDAO {
             statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(4, component.getBrandComponent().getBrandComponentId());
-            statement.setString(5,component.getModel());
+            statement.setString(5, component.getModel());
             statement.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error while creating component: " + e.getMessage());
@@ -49,7 +49,7 @@ public class ComponentDAO {
                             typeComponent,
                             brandComponent,
                             resultSet.getString("model")
-                            );
+                    );
                 }
             }
         } catch (SQLException e) {
@@ -99,7 +99,7 @@ public class ComponentDAO {
             statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
             statement.setInt(6, component.getComponent_id());
-            statement.setInt(4,component.getBrandComponent().getBrandComponentId() );
+            statement.setInt(4, component.getBrandComponent().getBrandComponentId());
             statement.setString(5, component.getModel());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -116,5 +116,49 @@ public class ComponentDAO {
         } catch (SQLException e) {
             System.err.println("Error while deleting component: " + e.getMessage());
         }
+    }
+
+    public List<Component> getComponentByidTypeComponentandByBrandId(int typeComponentId, int brandId) {
+        String sql = "SELECT * FROM component WHERE 1=1 ";
+        if (typeComponentId != 0) {
+            sql += " AND type_component_id = ?";
+        }
+        if (brandId != 0) {
+            sql += " AND brand_component_id = ?";
+        }
+        List<Component> componentList = new ArrayList<>();
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+            int id = 1;
+            if (typeComponentId != 0) {
+                statement.setInt(id, typeComponentId);
+                id++;
+            }
+            if (brandId != 0) {
+                statement.setInt(id, brandId);
+            }
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    // Fetching the type component data from the type_component table
+                    TypeComponentDAO typeComponentDAO = new TypeComponentDAO();
+                    TypeComponent typeComponent = typeComponentDAO.getTypeComponentById(resultSet.getInt("type_component_id"));
+
+                    // Fetching the brand component data from the brand_component table
+                    BrandComponentDAO brandComponentDAO = new BrandComponentDAO();
+                    BrandComponent brandComponent = brandComponentDAO.getBrandComponentById(resultSet.getInt("brand_component_id"));
+
+                    componentList.add(new Component(
+                            resultSet.getInt("component_id"),
+                            resultSet.getBigDecimal("unite_price"),
+                            resultSet.getBigDecimal("capacity"),
+                            typeComponent,
+                            brandComponent,
+                            resultSet.getString("model")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while searching  components by idBrand and idTypeComponent: " + e.getMessage());
+        }
+        return componentList;
     }
 }
