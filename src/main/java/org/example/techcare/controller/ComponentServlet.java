@@ -62,11 +62,10 @@ public class ComponentServlet extends HttpServlet {
         } else if (mode.equals("search")) {
             int typeComponentId = Integer.parseInt(req.getParameter("typeComponentId"));
             int brandComponentId = Integer.parseInt(req.getParameter("brandComponentId"));
-            //Recherche
-
-
+            req.setAttribute("typeComponentId", typeComponentId);
+            req.setAttribute("brandComponentId", brandComponentId);
+            components = new ComponentDAO().getComponentByidTypeComponentandByBrandId(typeComponentId, brandComponentId);
         }
-
         req.setAttribute("components", components);
         req.setAttribute("page", "listComponent");
         RequestDispatcher dispastcher = req.getRequestDispatcher("index.jsp");
