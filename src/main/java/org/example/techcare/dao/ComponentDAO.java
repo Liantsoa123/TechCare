@@ -5,6 +5,7 @@ import org.example.techcare.model.component.Component;
 import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class ComponentDAO {
     // Create
     public void createComponent(Component component) {
         String sql = "INSERT INTO component (unite_price, capacity, type_component_id, brand_component_id, model) VALUES ( ?, ?, ?,?,?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
             statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
@@ -30,7 +31,7 @@ public class ComponentDAO {
     // Read (by ID)
     public Component getComponentById(int componentId) {
         String sql = "SELECT * FROM component WHERE component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -44,7 +45,7 @@ public class ComponentDAO {
 
                     return new Component(
                             resultSet.getInt("component_id"),
-                            resultSet.getBigDecimal("unite_price"),
+                            new HistoriquePrixDAO().getLastPrice(componentId),
                             resultSet.getBigDecimal("capacity"),
                             typeComponent,
                             brandComponent,
@@ -62,7 +63,7 @@ public class ComponentDAO {
     public List<Component> getAllComponents() {
         String sql = "SELECT * FROM component";
         List<Component> componentList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -77,7 +78,7 @@ public class ComponentDAO {
 
                 componentList.add(new Component(
                         resultSet.getInt("component_id"),
-                        resultSet.getBigDecimal("unite_price"),
+                        new HistoriquePrixDAO().getLastPrice(resultSet.getInt("component_id")),
                         resultSet.getBigDecimal("capacity"),
                         typeComponent,
                         brandComponent,
@@ -94,7 +95,7 @@ public class ComponentDAO {
     // Update
     public void updateComponent(Component component) {
         String sql = "UPDATE component SET  unite_price = ?, capacity = ?, type_component_id = ? , brand_component_id = ?, model = ? WHERE component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setBigDecimal(1, component.getUnite_price());
             statement.setBigDecimal(2, component.getCapacity());
             statement.setInt(3, component.getTypeComponent().getType_component_id()); // Using the type component ID from the TypeComponent object
@@ -110,7 +111,7 @@ public class ComponentDAO {
     // Delete
     public void deleteComponent(int componentId) {
         String sql = "DELETE FROM component WHERE component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -127,7 +128,7 @@ public class ComponentDAO {
             sql += " AND brand_component_id = ?";
         }
         List<Component> componentList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             int id = 1;
             if (typeComponentId != 0) {
                 statement.setInt(id, typeComponentId);
@@ -148,7 +149,7 @@ public class ComponentDAO {
 
                     componentList.add(new Component(
                             resultSet.getInt("component_id"),
-                            resultSet.getBigDecimal("unite_price"),
+                            new HistoriquePrixDAO().getLastPrice(resultSet.getInt("component_id")),
                             resultSet.getBigDecimal("capacity"),
                             typeComponent,
                             brandComponent,

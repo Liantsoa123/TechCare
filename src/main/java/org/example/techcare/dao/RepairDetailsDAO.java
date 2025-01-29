@@ -5,6 +5,7 @@ import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.repair.RepairDetails;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class RepairDetailsDAO {
     // Create
     public void createRepairDetails(RepairDetails repairDetails) {
         String sql = "INSERT INTO repair_details (quantity, component_id, repair_id) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairDetails.getQuantity());
             statement.setInt(2, repairDetails.getComponent().getComponent_id()); // Using component_id from the Component object
             statement.setInt(3, repairDetails.getRepair().getRepair_id()); // Using repair_id from the Repair object
@@ -28,7 +29,7 @@ public class RepairDetailsDAO {
     // Read (by ID)
     public RepairDetails getRepairDetailsById(int repairDetailsId) {
         String sql = "SELECT repaire_details_id, quantity, component_id, repair_id FROM repair_details WHERE repaire_details_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairDetailsId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -57,7 +58,7 @@ public class RepairDetailsDAO {
     public List<RepairDetails> getAllRepairDetails() {
         String sql = "SELECT repaire_details_id, quantity, component_id, repair_id FROM repair_details";
         List<RepairDetails> repairDetailsList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -84,7 +85,7 @@ public class RepairDetailsDAO {
     // Update
     public void updateRepairDetails(RepairDetails repairDetails) {
         String sql = "UPDATE repair_details SET quantity = ?, component_id = ?, repair_id = ? WHERE repaire_details_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairDetails.getQuantity());
             statement.setInt(2, repairDetails.getComponent().getComponent_id()); // Using component_id from the Component object
             statement.setInt(3, repairDetails.getRepair().getRepair_id()); // Using repair_id from the Repair object
@@ -98,7 +99,7 @@ public class RepairDetailsDAO {
     // Delete
     public void deleteRepairDetails(int repairDetailsId) {
         String sql = "DELETE FROM repair_details WHERE repaire_details_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairDetailsId);
             statement.executeUpdate();
         } catch (SQLException e) {

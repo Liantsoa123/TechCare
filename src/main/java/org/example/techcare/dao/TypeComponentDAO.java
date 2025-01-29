@@ -3,6 +3,7 @@ package org.example.techcare.dao;
 import org.example.techcare.model.component.TypeComponent;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,7 +14,7 @@ public class TypeComponentDAO {
     // Read (by ID)
     public TypeComponent getTypeComponentById(int typeComponentId) {
         String sql = "SELECT * FROM type_component WHERE type_component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, typeComponentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -34,7 +35,7 @@ public class TypeComponentDAO {
     public List<TypeComponent> getAllTypeComponents() {
         String sql = "SELECT * FROM type_component";
         List<TypeComponent> typeComponentList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {

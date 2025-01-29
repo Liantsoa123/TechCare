@@ -52,7 +52,7 @@ public class ComponentServlet extends HttpServlet {
         if (mode.equals("insert")) {
             String model = req.getParameter("model");
             BigDecimal capacity = new BigDecimal(req.getParameter("capacity"));
-            BigDecimal unite_price = new BigDecimal(1);
+            BigDecimal unite_price = new BigDecimal(req.getParameter("unite_price"));
             int brandComponentId = Integer.parseInt(req.getParameter("brandComponentId"));
             BrandComponent brandComponent = new BrandComponentDAO().getBrandComponentById(brandComponentId);
             int typeComponentId = Integer.parseInt(req.getParameter("typeComponentId"));
