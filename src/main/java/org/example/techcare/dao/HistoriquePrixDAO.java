@@ -4,6 +4,7 @@ import org.example.techcare.model.component.Component;
 import org.example.techcare.model.histo.HistoriquePrix;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.math.BigDecimal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -126,4 +127,18 @@ public class HistoriquePrixDAO {
         return historiquePrixList;
     }
 
+    public  BigDecimal getLastPrice(int componentId) {
+        String sql = "SELECT prix FROM historique_prix WHERE component_id = ? ORDER BY dateHisto DESC LIMIT 1";
+        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+            statement.setInt(1, componentId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getBigDecimal("prix");
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Error while retrieving last price by Component ID: " + e.getMessage());
+        }
+        return null;
+    }
 }
