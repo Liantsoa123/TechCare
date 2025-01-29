@@ -5,6 +5,7 @@ import org.example.techcare.model.histo.HistoriquePrix;
 import org.example.techcare.model.utils.ConnectionBdd;
 
 import java.math.BigDecimal;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class HistoriquePrixDAO {
     // Create
     public void createHistoriquePrix(HistoriquePrix historiquePrix) {
         String sql = "INSERT INTO historique_prix (dateHisto, prix, component_id) VALUES (?, ?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setDate(1, java.sql.Date.valueOf(historiquePrix.getDateHisto()));
             statement.setBigDecimal(2, historiquePrix.getPrix());
             statement.setInt(3, historiquePrix.getComponent().getComponent_id());
@@ -30,7 +31,7 @@ public class HistoriquePrixDAO {
     // Read (by ID)
     public HistoriquePrix getHistoriquePrixById(int id) {
         String sql = "SELECT * FROM historique_prix WHERE id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -55,7 +56,7 @@ public class HistoriquePrixDAO {
     public List<HistoriquePrix> getAllHistoriquePrix() {
         String sql = "SELECT * FROM historique_prix";
         List<HistoriquePrix> historiquePrixList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             ComponentDAO componentDAO = new ComponentDAO();
@@ -79,7 +80,7 @@ public class HistoriquePrixDAO {
     // Update
     public void updateHistoriquePrix(HistoriquePrix historiquePrix) {
         String sql = "UPDATE historique_prix SET dateHisto = ?, prix = ?, component_id = ? WHERE id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setDate(1, java.sql.Date.valueOf(historiquePrix.getDateHisto()));
             statement.setBigDecimal(2, historiquePrix.getPrix());
             statement.setInt(3, historiquePrix.getComponent().getComponent_id());
@@ -93,7 +94,7 @@ public class HistoriquePrixDAO {
     // Delete
     public void deleteHistoriquePrix(int id) {
         String sql = "DELETE FROM historique_prix WHERE id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -105,7 +106,7 @@ public class HistoriquePrixDAO {
     public List<HistoriquePrix> getHistoriqueByIdComponent(int componentId) {
         String sql = "SELECT * FROM historique_prix WHERE component_id = ?";
         List<HistoriquePrix> historiquePrixList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentId);
             try (ResultSet resultSet = statement.executeQuery()) {
 
@@ -129,7 +130,7 @@ public class HistoriquePrixDAO {
 
     public  BigDecimal getLastPrice(int componentId) {
         String sql = "SELECT prix FROM historique_prix WHERE component_id = ? ORDER BY dateHisto DESC LIMIT 1";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {

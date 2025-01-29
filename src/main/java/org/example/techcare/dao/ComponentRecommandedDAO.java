@@ -13,7 +13,7 @@ public class ComponentRecommandedDAO {
     // Create
     public void createComponentRecommanded(ComponentRecommanded componentRecommande) {
         String sql = "INSERT INTO composant_recommande (component_id, date_recommande) VALUES (?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentRecommande.getComponent().getComponent_id());
             statement.setDate(2, componentRecommande.getDate_recommande());
             statement.executeUpdate();
@@ -28,7 +28,7 @@ public class ComponentRecommandedDAO {
                 "FROM composant_recommande cr " +
                 "JOIN component c ON cr.component_id = c.id " +
                 "WHERE cr.id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -50,7 +50,7 @@ public class ComponentRecommandedDAO {
     public List<ComponentRecommanded> getAllComponentRecommandes() {
         String sql = "SELECT * from composant_recommande ";
         List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -70,7 +70,7 @@ public class ComponentRecommandedDAO {
     // Update
     public void updateComponentRecommande(ComponentRecommanded componentRecommande) {
         String sql = "UPDATE composant_recommander SET component_id = ?, date_recommande = ? WHERE id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, componentRecommande.getComponent().getComponent_id());
             statement.setDate(2, componentRecommande.getDate_recommande());
             statement.setInt(3, componentRecommande.getId());
@@ -83,7 +83,7 @@ public class ComponentRecommandedDAO {
     // Delete
     public void deleteComponentRecommande(int id) {
         String sql = "DELETE FROM composant_recommande WHERE id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -103,7 +103,7 @@ public class ComponentRecommandedDAO {
                 "JOIN component c ON cr.component_id = c.component_id " +
                 "WHERE EXTRACT(YEAR FROM cr.date_recommande) = ? AND EXTRACT(MONTH FROM cr.date_recommande) = ?";
         List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, year);
             statement.setInt(2, month);
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -134,7 +134,7 @@ public class ComponentRecommandedDAO {
                 "JOIN component c ON cr.component_id = c.component_id " +
                 "WHERE EXTRACT(YEAR FROM cr.date_recommande) = ? ";
         List<ComponentRecommanded> componentRecommandes = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, year);
             statement.setInt(2, month);
             try (ResultSet resultSet = statement.executeQuery()) {

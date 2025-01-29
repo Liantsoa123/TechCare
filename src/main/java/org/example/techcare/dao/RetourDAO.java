@@ -5,10 +5,7 @@ import org.example.techcare.model.repair.Repair;
 import org.example.techcare.model.retour.Retour;
 import org.example.techcare.model.utils.ConnectionBdd;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +13,7 @@ public class RetourDAO {
     //Create
     public void createRetour(Retour retour) {
         String sql = "INSERT INTO retour (retour_date, repair_id) VALUES (?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setTimestamp(1, retour.getRetour_date());
             statement.setInt(2, retour.getRepair().getRepair_id()); // Using repair_id from the Repair object
             statement.executeUpdate();
@@ -28,7 +25,7 @@ public class RetourDAO {
     //Read (by ID)
     public Retour getRetourById(int retourId) {
         String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE retour_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, retourId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -52,7 +49,7 @@ public class RetourDAO {
     //Read by repair_id
     public Retour getRetourByRepairId(int repairId) {
         String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE repair_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -77,7 +74,7 @@ public class RetourDAO {
     public List<Retour> getAllRetours() {
         String sql = "SELECT retour_id, retour_date, repair_id FROM retour";
         List<Retour> retourList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -100,7 +97,7 @@ public class RetourDAO {
     //Update
     public void updateRetour(Retour retour) {
         String sql = "UPDATE retour SET retour_date = ?, repair_id = ? WHERE retour_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setTimestamp(1, retour.getRetour_date());
             statement.setInt(2, retour.getRepair().getRepair_id());
             statement.setInt(3, retour.getRetour_id());
@@ -113,7 +110,7 @@ public class RetourDAO {
     //Delete
     public void deleteRetour(int retourId) {
         String sql = "DELETE FROM retour WHERE retour_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, retourId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -138,7 +135,7 @@ public class RetourDAO {
     public List<Retour> getByDate( Date date) {
         String sql = "SELECT retour_id, retour_date, repair_id FROM retour WHERE DATE(retour_date) = ? ";
         List<Retour> retourList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)){
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)){
              statement.setDate(1,date);
              ResultSet resultSet = statement.executeQuery() ;
 

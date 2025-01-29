@@ -12,7 +12,7 @@ public class BrandComponentDAO {
     // Create
     public void createBrandComponent(BrandComponent brandComponent) {
         String sql = "INSERT INTO brand_component (name) VALUES (?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, brandComponent.getName());
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -23,7 +23,7 @@ public class BrandComponentDAO {
     // Read (by ID)
     public BrandComponent getBrandComponentById(int brandComponentId) {
         String sql = "SELECT brand_component_id, name FROM brand_component WHERE brand_component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, brandComponentId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -43,7 +43,7 @@ public class BrandComponentDAO {
     public List<BrandComponent> getAllBrandComponents() {
         String sql = "SELECT brand_component_id, name FROM brand_component";
         List<BrandComponent> brandComponents = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -61,7 +61,7 @@ public class BrandComponentDAO {
     // Update
     public void updateBrandComponent(BrandComponent brandComponent) {
         String sql = "UPDATE brand_component SET name = ? WHERE brand_component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, brandComponent.getName());
             statement.setInt(2, brandComponent.getBrandComponentId());
             statement.executeUpdate();
@@ -73,7 +73,7 @@ public class BrandComponentDAO {
     // Delete
     public void deleteBrandComponent(int brandComponentId) {
         String sql = "DELETE FROM brand_component WHERE brand_component_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, brandComponentId);
             statement.executeUpdate();
         } catch (SQLException e) {

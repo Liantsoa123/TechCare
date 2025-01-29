@@ -7,6 +7,7 @@ import org.example.techcare.model.repair.RepairType;
 import org.example.techcare.model.technician.Technician;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +18,7 @@ public class RepairDAO {
     // Create
     public void createRepair(Repair repair) {
         String sql = "INSERT INTO repair (filing_date, end_date, laptop_id, technician_id, repair_status_id , repair_type_id , total , description) VALUES (?,?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
             statement.setInt(3, repair.getLaptop().getLaptop_id()); // Using laptop_id from the Laptop object
@@ -35,7 +36,7 @@ public class RepairDAO {
     // Read (by ID)
     public Repair getRepairById(int repairId) {
         String sql = "SELECT * FROM repair WHERE repair_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -73,7 +74,7 @@ public class RepairDAO {
     public List<Repair> getAllRepairs() {
         String sql = "SELECT * FROM repair";
         List<Repair> repairList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -107,7 +108,7 @@ public class RepairDAO {
     // Update
     public void updateRepair(Repair repair) {
         String sql = "UPDATE repair SET filing_date = ?, end_date = ?, laptop_id = ?, technician_id = ?, repair_status_id = ? , repair_tpye_id = ? , description = ? WHERE repair_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setTimestamp(1, repair.getFiling_date());
             statement.setTimestamp(2, repair.getEnd_date());
             statement.setInt(3, repair.getLaptop().getLaptop_id()); // Using laptop_id from the Laptop object
@@ -125,7 +126,7 @@ public class RepairDAO {
     // Delete
     public void deleteRepair(int repairId) {
         String sql = "DELETE FROM repair WHERE repair_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, repairId);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -145,7 +146,7 @@ public class RepairDAO {
 
         List<Repair> repairs = new ArrayList<>();
 
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, idTypeComponent);
             statement.setInt(2, repairTypeId);
 
@@ -190,7 +191,7 @@ public class RepairDAO {
             sql += " AND r.repair_type_id = ?";
         }
 
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             int index = 1;
 
             // Paramètres dynamiques

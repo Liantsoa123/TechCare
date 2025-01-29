@@ -12,7 +12,7 @@ public class CustomersDAO {
     // Create
     public void createCustomer(Customers customer) {
         String sql = "INSERT INTO customers (email, name) VALUES (?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, customer.getEmail());
             statement.setString(2, customer.getName());
             statement.executeUpdate();
@@ -24,7 +24,7 @@ public class CustomersDAO {
     // Read (by ID)
     public Customers getCustomerById(int customerId) {
         String sql = "SELECT * FROM customers WHERE customers_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, customerId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -45,7 +45,7 @@ public class CustomersDAO {
     public List<Customers> getAllCustomers() {
         String sql = "SELECT customers_id, email, name FROM customers";
         List<Customers> customersList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -64,7 +64,7 @@ public class CustomersDAO {
     // Update
     public void updateCustomer(Customers customer) {
         String sql = "UPDATE customers SET email = ?, name = ? WHERE customers_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setString(1, customer.getEmail());
             statement.setString(2, customer.getName());
             statement.setInt(3, customer.getCustomers_id());
@@ -77,7 +77,7 @@ public class CustomersDAO {
     // Delete
     public void deleteCustomer(int customerId) {
         String sql = "DELETE FROM customers WHERE customers_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, customerId);
             statement.executeUpdate();
         } catch (Exception e) {

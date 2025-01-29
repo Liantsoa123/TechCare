@@ -14,7 +14,7 @@ public class StockMovementDAO {
     // Create
     public void createStockMovement(StockMovement stockMovement) {
         String sql = "INSERT INTO stock_movement (quantity, is_enter, date_movement, component_id) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setBigDecimal(1, stockMovement.getQuantity());
             statement.setBoolean(2, stockMovement.isEnter());
             statement.setTimestamp(3, stockMovement.getDateMovement());
@@ -28,7 +28,7 @@ public class StockMovementDAO {
     // Read (by ID)
     public StockMovement getStockMovementById(int stockMovementId) {
         String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, component_id FROM stock_movement WHERE stock_movement_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, stockMovementId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -54,7 +54,7 @@ public class StockMovementDAO {
     public List<StockMovement> getAllStockMovements() {
         String sql = "SELECT stock_movement_id, quantity, is_enter, date_movement, component_id FROM stock_movement";
         List<StockMovement> stockMovements = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             ComponentDAO componentDAO = new ComponentDAO();
@@ -79,7 +79,7 @@ public class StockMovementDAO {
     // Update
     public void updateStockMovement(StockMovement stockMovement) {
         String sql = "UPDATE stock_movement SET quantity = ?, is_enter = ?, date_movement = ?, component_id = ? WHERE stock_movement_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setBigDecimal(1, stockMovement.getQuantity());
             statement.setBoolean(2, stockMovement.isEnter());
             statement.setTimestamp(3, stockMovement.getDateMovement());
@@ -94,7 +94,7 @@ public class StockMovementDAO {
     // Delete
     public void deleteStockMovement(int stockMovementId) {
         String sql = "DELETE FROM stock_movement WHERE stock_movement_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, stockMovementId);
             statement.executeUpdate();
         } catch (SQLException e) {

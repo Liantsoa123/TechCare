@@ -6,6 +6,7 @@ import org.example.techcare.model.laptop.Laptop;
 import org.example.techcare.model.laptotype.LaptopType;
 import org.example.techcare.model.utils.ConnectionBdd;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class LaptopDAO {
     // Create
     public void createLaptop(Laptop laptop) {
         String sql = "INSERT INTO laptop ( model, serial_number, customers_id , brand_laptop_id, laptop_type_id) VALUES (?, ?, ?, ?,?)";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
 
             statement.setString(1, laptop.getModel());
             statement.setString(2, laptop.getSerial_number());
@@ -32,7 +33,7 @@ public class LaptopDAO {
     // Read (by ID)
     public Laptop getLaptopById(int laptopId) {
         String sql = "SELECT * FROM laptop WHERE laptop_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection(); PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, laptopId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
@@ -68,7 +69,7 @@ public class LaptopDAO {
     public List<Laptop> getAllLaptops() {
         String sql = "SELECT * FROM laptop";
         List<Laptop> laptopList = new ArrayList<>();
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql);
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
@@ -102,7 +103,7 @@ public class LaptopDAO {
     // Update
     public void updateLaptop(Laptop laptop) {
         String sql = "UPDATE laptop SET brand_laptop_id = ?, model = ?, serial_number = ?, customers_id = ?, laptop_type_id = ? WHERE laptop_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, laptop.getBrandLaptop().getBrandLaptopId());
             statement.setString(2, laptop.getModel());
             statement.setString(3, laptop.getSerial_number());
@@ -119,7 +120,7 @@ public class LaptopDAO {
     // Delete
     public void deleteLaptop(int laptopId) {
         String sql = "DELETE FROM laptop WHERE laptop_id = ?";
-        try (PreparedStatement statement = new ConnectionBdd().getConnection().prepareStatement(sql)) {
+        try (Connection conn = new ConnectionBdd().getConnection();PreparedStatement statement = conn.prepareStatement(sql)) {
             statement.setInt(1, laptopId);
             statement.executeUpdate();
         } catch (SQLException e) {
