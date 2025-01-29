@@ -79,20 +79,24 @@
                         <th>Brand</th>
                         <th>Unite price</th>
                         <th>Capacity</th>
-                        <th></th>
-                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
+                    <%
+                        int id = 1;
+                        for (Component component : components) { %>
                     <tr>
-                        <td>1</td>
-                        <td>GPU</td>
-                        <td>RTX</td>
-                        <td>2000000 Ar</td>
-                        <td>4 go</td>
-                        <td><button type="button" class="btn btn-outline-warning btn-fw">Edit</button></td>
-                        <td><button type="button" class="btn btn-outline-danger btn-fw">Delete</button></td>
+                        <td><%=id%></td>
+                        <td><%=component.getModel()%></td>
+                        <td><%=component.getTypeComponent().getName()%></td>
+                        <td><%=component.getBrandComponent().getName()%></td>
+                        <td><%=component.getUnite_price()%></td>
+                        <td><%=component.getCapacity()%></td>
                     </tr>
+                    <%
+                            id++;
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>
