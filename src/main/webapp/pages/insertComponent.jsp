@@ -57,8 +57,14 @@
 
                     <div class="form-group">
                         <label for="Capacity">Capacity</label>
-                        <input type="number" class="form-control" id="Capacity"
+                        <input type="number" step="any" class="form-control" id="Capacity"
                                placeholder="Capacity" name="capacity">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" step="any" class="form-control" id="price"
+                               placeholder="Price" name="unite_price">
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-2">Insert</button>
