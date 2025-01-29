@@ -44,7 +44,7 @@ public class ComponentDAO {
 
                     return new Component(
                             resultSet.getInt("component_id"),
-                            resultSet.getBigDecimal("unite_price"),
+                            new HistoriquePrixDAO().getLastPrice(componentId),
                             resultSet.getBigDecimal("capacity"),
                             typeComponent,
                             brandComponent,
@@ -77,7 +77,7 @@ public class ComponentDAO {
 
                 componentList.add(new Component(
                         resultSet.getInt("component_id"),
-                        resultSet.getBigDecimal("unite_price"),
+                        new HistoriquePrixDAO().getLastPrice(resultSet.getInt("component_id")),
                         resultSet.getBigDecimal("capacity"),
                         typeComponent,
                         brandComponent,
@@ -148,7 +148,7 @@ public class ComponentDAO {
 
                     componentList.add(new Component(
                             resultSet.getInt("component_id"),
-                            resultSet.getBigDecimal("unite_price"),
+                            new HistoriquePrixDAO().getLastPrice(resultSet.getInt("component_id")),
                             resultSet.getBigDecimal("capacity"),
                             typeComponent,
                             brandComponent,
